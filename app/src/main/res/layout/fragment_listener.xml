@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ListenerFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+
+    android:background="@drawable/background"
+    >
+
+    <TextView
+        android:id="@+id/listeningStatusText"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="@string/listening"
+        android:textColor="@color/contrasteDetalle"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="118dp" />
+
+    <ImageButton
+        android:id="@+id/listenButton"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/listening_button"
+        app:tint="@color/contrasteDetalle"
+        android:src="@drawable/visibility_fill0_wght400_grad0_opsz48"
+        android:scaleType="fitXY"
+        android:padding="50dp"
+        android:contentDescription="Boton para iniciar o desactivar la escucha"
+        />
+
+    <TextView
+        android:id="@+id/devicesText"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="X dispositivos programados para su desactivación"
+        android:textColor="@color/contrasteDetalle"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="496dp" />
+</LinearLayout>

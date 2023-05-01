@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_listener"
+        android:icon="@drawable/visibility_fill0_wght400_grad0_opsz48"
+        android:title="Escucha" />
+    <item
+        android:id="@+id/menu_dispositivos"
+        android:icon="@drawable/home_iot_device_fill0_wght400_grad0_opsz48"
+        android:title="Dispositivos" />
+    <item
+        android:id="@+id/menu_estadisticas"
+        android:icon="@drawable/sleep_score_fill0_wght400_grad0_opsz48"
+        android:title="Estadisticas"/>
+    <item
+        android:id="@+id/menu_usuario"
+        android:icon="@drawable/person_fill0_wght400_grad0_opsz48"
+        android:title="Usuario"/>
+
+</menu>
