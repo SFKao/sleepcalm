@@ -58,6 +58,7 @@ public class SleepService extends BroadcastReceiver {
     private void activateListener() {
 
         Log.d("MIMIR", "activando listener");
+        ApiService.sendTestMessage("activando listener");
 
         sleepReceiverPendingIntent = createSleepReceiverPendingIntent(context);
         Task<Void> task = ActivityRecognition.getClient(context).requestSleepSegmentUpdates(
@@ -70,18 +71,21 @@ public class SleepService extends BroadcastReceiver {
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Escuchando...", Toast.LENGTH_SHORT).show();
                 Log.d("MIMIR", "Escuchando...");
+                ApiService.sendTestMessage("Escuchando...");
             }
         });
     }
 
     private void deactivateListener(){
         Log.d("MIMIR", "desactivando listener");
+        ApiService.sendTestMessage("desactivando listener");
         Task<Void> task = ActivityRecognition.getClient(context).removeSleepSegmentUpdates(sleepReceiverPendingIntent);
 
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("MIMIR", "Parada la escucha.");
+                ApiService.sendTestMessage("Parada la escucha");
             }
         });
 
@@ -94,19 +98,20 @@ public class SleepService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("MIMIR", "onReceive(): "+ intent);
+        ApiService.sendTestMessage("onReceive(): "+ intent);
 
         //Recivido un evento de sueño
         if(SleepSegmentEvent.hasEvents(intent)){
 
             List<SleepSegmentEvent> events = SleepSegmentEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de segmento "+events);
-
+            ApiService.sendTestMessage("eventos de segmento "+events);
             //TODO: Enviar al back
 
         }else if(SleepClassifyEvent.hasEvents(intent)){
             List<SleepClassifyEvent> events = SleepClassifyEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de clasificar "+events);
-
+            ApiService.sendTestMessage("eventos de clasificar "+events);
             //TODO: Enviar al back
         }
     }
