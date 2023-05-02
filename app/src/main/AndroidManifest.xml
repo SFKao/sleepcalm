@@ -27,4 +27,7 @@
         </activity>
     </application>
 
+    <!-- Requerido para poder detectar el sueño -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
 </manifest>
