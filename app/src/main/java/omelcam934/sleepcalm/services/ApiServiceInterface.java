@@ -11,4 +11,10 @@ public interface ApiServiceInterface {
     @POST("/sleep")
     Call<String> enviarMensajeAlServidorDePrueba(@Body ApiService.Mensaje mensaje);
 
+    @POST("/sleepsegment")
+    Call<String> enviarSegmento(@Body ApiService.Mensaje mensaje);
+
+    @POST("/sleepclassify")
+    Call<String> enviarClassify(@Body ApiService.Mensaje mensaje);
+
 }

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.location.ActivityRecognition;
@@ -74,7 +75,11 @@ public class SleepService extends BroadcastReceiver {
                 ApiService.sendTestMessage("Escuchando...");
             }
         });
+
+
     }
+
+
 
     private void deactivateListener(){
         Log.d("MIMIR", "desactivando listener");
@@ -97,21 +102,21 @@ public class SleepService extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("MIMIR", "onReceive(): "+ intent);
-        ApiService.sendTestMessage("onReceive(): "+ intent);
 
         //Recivido un evento de sueño
         if(SleepSegmentEvent.hasEvents(intent)){
 
             List<SleepSegmentEvent> events = SleepSegmentEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de segmento "+events);
-            ApiService.sendTestMessage("eventos de segmento "+events);
+            ApiService.sendSegmento("eventos de segmento "+events);
+
             //TODO: Enviar al back
 
         }else if(SleepClassifyEvent.hasEvents(intent)){
             List<SleepClassifyEvent> events = SleepClassifyEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de clasificar "+events);
-            ApiService.sendTestMessage("eventos de clasificar "+events);
+            ApiService.sendClassify("eventos de clasificar "+events);
+
             //TODO: Enviar al back
         }
     }

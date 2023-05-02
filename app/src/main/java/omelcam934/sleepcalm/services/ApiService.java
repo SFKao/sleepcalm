@@ -33,6 +33,52 @@ public class ApiService {
         });
     }
 
+    public static void sendClassify(String mensaje){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.18.4:3000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+
+        Call<String> stringCall = service.enviarClassify(new Mensaje(mensaje));
+
+        stringCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public static void sendSegmento(String mensaje){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.18.4:3000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+
+        Call<String> stringCall = service.enviarSegmento(new Mensaje(mensaje));
+
+        stringCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
     static class Mensaje{
         public Mensaje(String msg) {
             this.msg = msg;
