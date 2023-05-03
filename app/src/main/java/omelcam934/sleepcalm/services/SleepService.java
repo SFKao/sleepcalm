@@ -36,6 +36,13 @@ public class SleepService extends BroadcastReceiver {
     private MainActivity context;
     private boolean active = false;
 
+    private static final int CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP = 3;
+    private int[] sleepTracker = new int[CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP];
+
+    private static final int CONFIDENCE_TO_BE_CONSIDERED_ASLEEP = 92;
+
+    public boolean userAsleep = false;
+
     /**
      * Obtener el objeto singleton del servicio.
      * @return unico servicio
@@ -76,6 +83,8 @@ public class SleepService extends BroadcastReceiver {
      */
     @SuppressLint("MissingPermission")
     private void activateListener() {
+
+        userAsleep = false;
 
         Log.d("MIMIR", "activando listener");
         ApiService.sendTestMessage("activando listener");
@@ -129,7 +138,7 @@ public class SleepService extends BroadcastReceiver {
     /**
      * Se llama al recibir un mensaje de los servicios.
      * @param context contexto desde el que lo recive
-     * @param intent contiene la informacion del evento
+     * @param intent contiene la informacion
      */
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -144,11 +153,41 @@ public class SleepService extends BroadcastReceiver {
             //TODO: Enviar al back
 
         }else if(SleepClassifyEvent.hasEvents(intent)){
+            //Los eventos de classify contienen la confiazna de que el usuario se haya dormido.
             List<SleepClassifyEvent> events = SleepClassifyEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de clasificar "+events);
             ApiService.sendClassify("eventos de clasificar "+events);
 
+            events.forEach(event -> {
+                addSleepTrack(event.getConfidence());
+            });
             //TODO: Enviar al back
         }
+    }
+
+    /**
+     * Añade la confianza del ultimo evento.
+     * @param confidence confianza de que el usuario esta dormido
+     */
+    public void addSleepTrack(int confidence){
+        //Si el usuario esta dormido no continuaremos
+        if(userAsleep)
+            return;
+
+        //Comienzo shifteando las posiciones dejando la primera vacia.
+        if (sleepTracker.length - 1 >= 0)
+            System.arraycopy(sleepTracker, 0, sleepTracker, 1, sleepTracker.length - 1);
+
+        sleepTracker[0] = confidence;
+        //Si alguna de las entradas no es mayor que la confianza requerida lo desactivo.
+        for (int j : sleepTracker)
+            if (j < CONFIDENCE_TO_BE_CONSIDERED_ASLEEP)
+                return;
+
+        //Si ha llegado hasta aqui, es que el usuario esta dormido.
+        IOTService.getIotService().executeCommands();
+        userAsleep = true;
+
+        //No apagamos el servicio ya que apagarlo dejara de obtener los datos para mas adelante las estadisticas.
     }
 }
