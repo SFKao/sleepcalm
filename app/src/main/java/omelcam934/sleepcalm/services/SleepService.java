@@ -23,12 +23,23 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
+
+/**
+ * Servicio encargado de lo relacionado con el sueño
+ */
 public class SleepService extends BroadcastReceiver {
 
 
     private static SleepService sleepService;
     private PendingIntent sleepReceiverPendingIntent;
 
+    private MainActivity context;
+    private boolean active = false;
+
+    /**
+     * Obtener el objeto singleton del servicio.
+     * @return unico servicio
+     */
     public static SleepService getSleepService() {
         if (sleepService == null) {
             sleepService = new SleepService();
@@ -36,14 +47,19 @@ public class SleepService extends BroadcastReceiver {
         return sleepService;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public PendingIntent createSleepReceiverPendingIntent(MainActivity context) {
+    /**
+     * Crea una petición para la api de sueño
+     * @param context contexto de donde se utilice el servicio.
+     * @return Peticion para la api de sueño
+     */
+    private PendingIntent createSleepReceiverPendingIntent(MainActivity context) {
         return PendingIntent.getBroadcast(context, 0, new Intent(context, SleepService.class), PendingIntent.FLAG_CANCEL_CURRENT+PendingIntent.FLAG_MUTABLE);
     }
 
-    private MainActivity context;
-    private boolean active = false;
-
+    /**
+     * Activa y desactiva el servicio.
+     * @param newStatus activar el servicio
+     */
     public void changeStatus(boolean newStatus) {
         if(newStatus != active){
             if(newStatus)
@@ -55,6 +71,9 @@ public class SleepService extends BroadcastReceiver {
     }
 
 
+    /**
+     * Comienza a recibir actualizaciones sobre el sueño del usuario
+     */
     @SuppressLint("MissingPermission")
     private void activateListener() {
 
@@ -67,7 +86,10 @@ public class SleepService extends BroadcastReceiver {
                 SleepSegmentRequest.getDefaultSleepSegmentRequest()
         );
 
+
+        //Comienza la escucha.
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            //Si la escucha ha comenzado correctamente
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Escuchando...", Toast.LENGTH_SHORT).show();
@@ -75,18 +97,18 @@ public class SleepService extends BroadcastReceiver {
                 ApiService.sendTestMessage("Escuchando...");
             }
         });
-
-
     }
 
-
-
+    /**
+     * Desactiva el servicio de escucha
+     */
     private void deactivateListener(){
         Log.d("MIMIR", "desactivando listener");
         ApiService.sendTestMessage("desactivando listener");
         Task<Void> task = ActivityRecognition.getClient(context).removeSleepSegmentUpdates(sleepReceiverPendingIntent);
 
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
+            //Si la escucha ha parado correctamente
             @Override
             public void onSuccess(Void unused) {
                 Log.d("MIMIR", "Parada la escucha.");
@@ -96,10 +118,19 @@ public class SleepService extends BroadcastReceiver {
 
     }
 
+    /**
+     * Obtiene el contexto del servicio. Es requerido para funcionar
+     * @param mainActivity la main activity donde se utiliza y esta el fragmento de sueño.
+     */
     public void setContext(MainActivity mainActivity){
         context = mainActivity;
     }
 
+    /**
+     * Se llama al recibir un mensaje de los servicios.
+     * @param context contexto desde el que lo recive
+     * @param intent contiene la informacion del evento
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 

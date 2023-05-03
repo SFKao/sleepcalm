@@ -48,6 +48,9 @@ public class ListenerFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Pide los permisos para monitorizar tu actividad. Requerido para la api de sueño.
+     */
     private ActivityResultLauncher<String> requestPermissionLauncher =
         registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -60,18 +63,7 @@ public class ListenerFragment extends Fragment {
         }
     });
 
-    /*
-     public static ListenerFragment newInstance(String param1, String param2) {
-         ListenerFragment fragment = new ListenerFragment();
-         Bundle args = new Bundle();
-         args.putString(ARG_PARAM1, param1);
-         args.putString(ARG_PARAM2, param2);
-         fragment.setArguments(args);
-         return fragment;
-     }
-     */
-
-     public static ListenerFragment newInstance(){
+    public static ListenerFragment newInstance(){
          return new ListenerFragment();
      }
 
@@ -89,12 +81,19 @@ public class ListenerFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_listener, container, false);
     }
 
+    /**
+     * Para obtener el contexto
+     * @param context activity que creo el fragment
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = (MainActivity) context;
     }
 
+    /**
+     * Inicializa el fragment
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -121,11 +120,18 @@ public class ListenerFragment extends Fragment {
         listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
     }
 
+    /**
+     * Comprueba si se tienen los permisos
+     * @return
+     */
     private boolean checkRecognitionPermission(){
         //Mira si se tiene los permisos para seguir al usuario.
         return PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission( context, Manifest.permission.ACTIVITY_RECOGNITION);
     }
 
+    /**
+     * Muestra un popup para pedir los permisos de monitorizacion
+     */
     private void displayPermissionSettingsSnackBar() {
         Snackbar.make(
                         context.findViewById(R.id.fragment_holder),
@@ -151,7 +157,9 @@ public class ListenerFragment extends Fragment {
             .show();
     }
 
-
+    /**
+     * Obtiene los componentes de un fragment.
+     */
     private void initView() {
         listeningStatusText = (TextView) context.findViewById(R.id.listeningStatusText);
         listenButton = (ImageButton) context.findViewById(R.id.listenButton);
