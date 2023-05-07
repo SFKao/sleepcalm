@@ -21,6 +21,7 @@ import com.google.android.gms.location.SleepSegmentRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -37,9 +38,10 @@ public class SleepService extends BroadcastReceiver {
     private boolean active = false;
 
     private static final int CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP = 3;
-    private int[] sleepTracker = new int[CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP];
+    private final int[] sleepTracker = new int[CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP];
+    private int newSleepTrackerPos = 0;
 
-    private static final int CONFIDENCE_TO_BE_CONSIDERED_ASLEEP = 92;
+    private static final int CONFIDENCE_TO_BE_CONSIDERED_ASLEEP = 265;
 
     public boolean userAsleep = false;
 
@@ -75,6 +77,10 @@ public class SleepService extends BroadcastReceiver {
                 deactivateListener();
             active = newStatus;
         }
+    }
+
+    public boolean getStatus(){
+        return active;
     }
 
 
@@ -114,6 +120,8 @@ public class SleepService extends BroadcastReceiver {
     private void deactivateListener(){
         Log.d("MIMIR", "desactivando listener");
         ApiService.sendTestMessage("desactivando listener");
+        Arrays.fill(sleepTracker, 0);
+
         Task<Void> task = ActivityRecognition.getClient(context).removeSleepSegmentUpdates(sleepReceiverPendingIntent);
 
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -159,35 +167,30 @@ public class SleepService extends BroadcastReceiver {
             ApiService.sendClassify("eventos de clasificar "+events);
 
             events.forEach(event -> {
-                addSleepTrack(event.getConfidence());
+
+                //Si el usuario esta dormido no continuaremos
+                if(userAsleep)
+                    return;
+
+                sleepTracker[newSleepTrackerPos++%sleepTracker.length] = event.getConfidence();
+
+                //Si alguna de las entradas no es mayor que la confianza requerida lo desactivo.
+                int sum = 0;
+                for (int j : sleepTracker)
+                    sum += j;
+                ApiService.sendClassify("ARRAY: "+Arrays.toString(sleepTracker)+ " SUM:"+sum+" TRACKERPOS: "+newSleepTrackerPos);
+                if(sum<CONFIDENCE_TO_BE_CONSIDERED_ASLEEP)
+                    return;
+
+                //Si ha llegado hasta aqui, es que el usuario esta dormido.
+                IOTService.getIotService().executeCommands();
+                userAsleep = true;
+
+                //No apagamos el servicio ya que apagarlo dejara de obtener los datos para mas adelante las estadisticas.
+
+
             });
             //TODO: Enviar al back
         }
-    }
-
-    /**
-     * Añade la confianza del ultimo evento.
-     * @param confidence confianza de que el usuario esta dormido
-     */
-    public void addSleepTrack(int confidence){
-        //Si el usuario esta dormido no continuaremos
-        if(userAsleep)
-            return;
-
-        //Comienzo shifteando las posiciones dejando la primera vacia.
-        if (sleepTracker.length - 1 >= 0)
-            System.arraycopy(sleepTracker, 0, sleepTracker, 1, sleepTracker.length - 1);
-
-        sleepTracker[0] = confidence;
-        //Si alguna de las entradas no es mayor que la confianza requerida lo desactivo.
-        for (int j : sleepTracker)
-            if (j < CONFIDENCE_TO_BE_CONSIDERED_ASLEEP)
-                return;
-
-        //Si ha llegado hasta aqui, es que el usuario esta dormido.
-        IOTService.getIotService().executeCommands();
-        userAsleep = true;
-
-        //No apagamos el servicio ya que apagarlo dejara de obtener los datos para mas adelante las estadisticas.
     }
 }
