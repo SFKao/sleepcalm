@@ -35,6 +35,12 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.ACTIVITY_RECOGNITION" />
+
+        <service android:name=".services.SleepService"
+            android:permission="android.permission.ACTIVITY_RECOGNITION"
+            android:enabled="true"
+            android:exported="true"
+            />
     </application>
 
 </manifest>

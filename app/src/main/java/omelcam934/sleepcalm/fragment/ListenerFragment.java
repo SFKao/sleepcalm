@@ -111,9 +111,7 @@ public class ListenerFragment extends Fragment {
 
             //Cambio el estado de escucha
             this.listening = ! this.listening;
-
-            SleepService.getSleepService().changeStatus(listening);
-
+            context.getSleepService().changeStatus(listening);
             listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
         });
 

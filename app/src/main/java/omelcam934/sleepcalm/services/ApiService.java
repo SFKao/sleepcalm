@@ -1,7 +1,10 @@
 package omelcam934.sleepcalm.services;
 
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -9,6 +12,28 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
+
+    public static void executeApiCall(String url){
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+
+        Call<ResponseBody> call = service.executeApiCall(url);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
     public static void sendTestMessage(String mensaje){
         Retrofit retrofit = new Retrofit.Builder()
