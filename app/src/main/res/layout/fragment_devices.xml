@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DevicesFragment"
+    android:background="@drawable/background"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDispositivos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/menuFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:clickable="true"
+        android:contentDescription="Menu"
+        android:src="@drawable/ic_baseline_toc_24"
+        app:backgroundTint="@color/detalle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editarFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:clickable="true"
+        android:src="@drawable/edit_fill0_wght400_grad0_opsz48"
+        app:backgroundTint="@color/detalle"
+        android:tint="@color/detalle"
+        app:layout_constraintBottom_toTopOf="@+id/menuFloatingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        android:contentDescription="Editar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/anyadirFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:clickable="true"
+        android:src="@drawable/add_fill0_wght400_grad0_opsz48"
+        android:tint="@color/detalle"
+        app:backgroundTint="@color/detalle"
+        app:layout_constraintBottom_toTopOf="@+id/borrarFloatingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        android:contentDescription="Añadir" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/borrarFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:clickable="true"
+        android:src="@drawable/delete_fill0_wght400_grad0_opsz48"
+        android:tint="@color/detalle"
+        app:backgroundTint="@color/detalle"
+        app:layout_constraintBottom_toTopOf="@+id/editarFloatingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        android:contentDescription="Borrar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

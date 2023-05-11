@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/selected_bottom_navigation"
+    android:gravity="center_vertical"
+    android:padding="25dp"
+    >
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/icon_device"
+        app:tint="@color/detalle"
+        android:contentDescription="Icono del dispositivo" />
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:id="@+id/name_device"
+        android:textColor="@color/detalle"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_device"
+        android:layout_width="55dp"
+        android:layout_height="match_parent"
+        app:thumbTint="@color/detalle"
+        app:trackTint="@color/contrasteFondo"
+        />
+
+
+</LinearLayout>

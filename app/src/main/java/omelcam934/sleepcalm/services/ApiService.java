@@ -13,14 +13,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
 
-    public static void executeApiCall(String url){
+    public static void executeApiCall(String baseURL, String path){
+        System.out.println(baseURL+path);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(baseURL)
                 .build();
 
         ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
 
-        Call<ResponseBody> call = service.executeApiCall(url);
+        Call<ResponseBody> call = service.executeApiCall(path);
+
+
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
