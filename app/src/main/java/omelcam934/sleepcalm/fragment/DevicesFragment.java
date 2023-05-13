@@ -16,14 +16,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.MainActivity;
 import omelcam934.sleepcalm.adapter.DevicesAdapter;
-import omelcam934.sleepcalm.devices.EndpointDevice;
+import omelcam934.sleepcalm.devices.Device;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DevicesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DevicesFragment extends Fragment {
+public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemClickListener {
 
     private static final String NORMAL = "NORMAL";
     private static final String EDITAR = "EDITAR";
@@ -72,26 +67,12 @@ public class DevicesFragment extends Fragment {
 
         editarFloatingButton.setOnClickListener(v -> {
             Toast.makeText(context, "Pulsa sobre la que deseas editar", Toast.LENGTH_SHORT).show();
-
+            modo = EDITAR;
         });
 
-        devicesAdapter = new DevicesAdapter();
+        devicesAdapter = new DevicesAdapter(this);
         recyclerDispositivos.setAdapter(devicesAdapter);
 
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DevicesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DevicesFragment newInstance(String param1, String param2) {
-        DevicesFragment fragment = new DevicesFragment();
-        return fragment;
     }
 
     @Override
@@ -118,5 +99,20 @@ public class DevicesFragment extends Fragment {
         anyadirFloatingButton = (FloatingActionButton) context.findViewById(R.id.anyadirFloatingButton);
         borrarFloatingButton = (FloatingActionButton) context.findViewById(R.id.borrarFloatingButton);
         recyclerDispositivos = (RecyclerView) context.findViewById(R.id.recyclerDispositivos);
+    }
+
+    @Override
+    public boolean onItemClicked(Device device) {
+
+        switch (modo){
+            case EDITAR:
+                new DeviceInputFragment(device).show(context.getSupportFragmentManager(), "Editar dispositivo");
+                return true;
+            case BORRAR:
+
+
+                return true;
+        }
+        return false;
     }
 }

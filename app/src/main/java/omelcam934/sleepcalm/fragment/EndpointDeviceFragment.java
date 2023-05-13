@@ -23,6 +23,8 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
     private EditText deviceEndpointEndpoint;
     private EditText deviceEndpointParametro;
 
+    private String[] data;
+
     public EndpointDeviceFragment() {
         // Required empty public constructor
     }
@@ -50,6 +52,12 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
         View view = inflater.inflate(R.layout.fragment_endpoint_device, container, false);
         initView(view);
 
+        if(data!=null){
+            deviceEndpointIp.setText(data[0]);
+            deviceEndpointPuerto.setText(data[1]);
+            deviceEndpointEndpoint.setText(data[2]);
+            deviceEndpointParametro.setText(data[3]);
+        }
 
         return view;
     }
@@ -72,10 +80,7 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
 
     @Override
     public void setData(String[] data) {
-        deviceEndpointIp.setText(data[0]);
-        deviceEndpointPuerto.setText(data[1]);
-        deviceEndpointEndpoint.setText(data[2]);
-        deviceEndpointParametro.setText(data[3]);
+        this.data = data;
     }
 
     private void initView(View context) {

@@ -22,8 +22,14 @@ import omelcam934.sleepcalm.devices.EndpointDeviceRealm;
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesViewHolder> {
 
     private final List<Device> devices;
+    private OnItemClickListener onItemClickListener;
 
     public DevicesAdapter() {
+        devices = DevicesRealm.getAllDevices();
+    }
+
+    public DevicesAdapter(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
         devices = DevicesRealm.getAllDevices();
     }
 
@@ -51,6 +57,12 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
             return true;
         });
 
+        holder.deviceName.setOnClickListener(v -> {
+            if(onItemClickListener!=null)
+                onItemClickListener.onItemClicked(devices.get(pos));
+        });
+
+
     }
 
     @Override
@@ -59,18 +71,19 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     }
 
     public static class DevicesViewHolder extends RecyclerView.ViewHolder {
-
         private final TextView deviceName;
         private final ImageView deviceIcon;
         private final SwitchCompat deviceSwitch;
 
         public DevicesViewHolder(@NonNull View view) {
             super(view);
-
             deviceIcon = view.findViewById(R.id.icon_device);
             deviceName = view.findViewById(R.id.name_device);
             deviceSwitch = view.findViewById(R.id.switch_device);
         }
     }
 
+    public interface OnItemClickListener{
+        boolean onItemClicked(Device device);
+    }
 }
