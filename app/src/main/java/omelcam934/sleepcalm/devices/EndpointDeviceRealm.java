@@ -8,7 +8,7 @@ import io.realm.RealmResults;
 
 public class EndpointDeviceRealm {
 
-    public static void update(EndpointDevice endpointDevice){
+    public static void insertOrUpdate(EndpointDevice endpointDevice){
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> realm1.insertOrUpdate(endpointDevice));
     }

@@ -16,4 +16,9 @@ public class DevicesRealm {
             EndpointDeviceRealm.updateActiveStatus((EndpointDevice) device, newActiveStatus);
     }
 
+    public static void addDevice(Device device){
+        if(device instanceof EndpointDevice)
+            EndpointDeviceRealm.insertOrUpdate((EndpointDevice) device);
+    }
+
 }

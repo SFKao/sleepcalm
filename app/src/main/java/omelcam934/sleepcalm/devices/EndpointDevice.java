@@ -9,6 +9,8 @@ import omelcam934.sleepcalm.services.ApiService;
 
 public class EndpointDevice extends RealmObject implements Device{
 
+    public static final String TYPE = "Endpoint";
+
     @PrimaryKey
     private String id = ObjectId.get().toHexString();
 
@@ -68,6 +70,16 @@ public class EndpointDevice extends RealmObject implements Device{
         this.active = active;
     }
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getIp() {
         return ip;
     }
@@ -98,6 +110,11 @@ public class EndpointDevice extends RealmObject implements Device{
 
     public void setParametros(String parametros) {
         this.parametros = parametros;
+    }
+
+    @Override
+    public String getType() {
+        return TYPE;
     }
 
     public void apagar() {

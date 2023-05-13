@@ -8,6 +8,10 @@ import java.util.Objects;
 //extender de 2 distintas
 public interface Device {
 
+    void setId(String id);
+
+    String getId();
+
     String getNombre();
 
     void setNombre(String nombre);
@@ -19,6 +23,8 @@ public interface Device {
     boolean isActive();
 
     void setActive(boolean active);
+
+    String getType();
 
     void apagar();
 

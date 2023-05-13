@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,10 @@ import omelcam934.sleepcalm.devices.EndpointDevice;
  */
 public class DevicesFragment extends Fragment {
 
+    private static final String NORMAL = "NORMAL";
+    private static final String EDITAR = "EDITAR";
+    private static final String BORRAR = "BORRAR";
+
     private MainActivity context;
     private FloatingActionButton menuFloatingButton;
     private FloatingActionButton editarFloatingButton;
@@ -33,6 +38,8 @@ public class DevicesFragment extends Fragment {
 
     private RecyclerView recyclerDispositivos;
     private DevicesAdapter devicesAdapter;
+
+    private String modo = NORMAL;
 
     public DevicesFragment() {
         // Required empty public constructor
@@ -61,6 +68,11 @@ public class DevicesFragment extends Fragment {
 
         anyadirFloatingButton.setOnClickListener(v -> {
             new DeviceInputFragment().show(context.getSupportFragmentManager(), "Añadir dispositivo");
+        });
+
+        editarFloatingButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Pulsa sobre la que deseas editar", Toast.LENGTH_SHORT).show();
+
         });
 
         devicesAdapter = new DevicesAdapter();

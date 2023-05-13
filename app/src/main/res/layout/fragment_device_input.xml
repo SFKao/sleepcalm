@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentHolderDeviceData"
@@ -35,11 +35,10 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutDescriptivo">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/protocoloHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:text="Protocolo"
                 android:textColor="@color/detalle"
                 android:textStyle="bold"
@@ -48,10 +47,12 @@
 
             <Spinner
                 android:id="@+id/protocolSpinner"
-                android:layout_width="359dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_width="300dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginEnd="96dp"
                 android:backgroundTint="@color/detalle"
+                android:contentDescription="Protocolo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,12 +63,12 @@
 
         <LinearLayout
             android:id="@+id/linearLayoutDescriptivo"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="65dp"
+            android:baselineAligned="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:baselineAligned="false">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -76,8 +77,8 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="6"
-
-                >
+                android:backgroundTint="@color/detalle"
+                android:foregroundTint="@color/detalle">
 
                 <EditText
                     android:id="@+id/deviceNameEdit"
@@ -85,8 +86,9 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/rounder_corners"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:foregroundTint="@color/detalle"
                     android:hint="Nombre"
+                    android:inputType="textPersonName"
                     android:textColor="@color/detalle"
                     android:textStyle="bold" />
 
@@ -96,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:background="@drawable/rounder_corners"
                 android:orientation="horizontal">
 
@@ -104,8 +106,8 @@
                     android:id="@+id/iconSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/detalle" />
+                    android:backgroundTint="@color/detalle"
+                    android:contentDescription="Device icon" />
             </LinearLayout>
 
         </LinearLayout>
@@ -115,27 +117,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
+            android:backgroundTint="@color/detalle"
             android:clickable="true"
+            android:contentDescription="Volver"
             android:src="@drawable/arrow_back_fill0_wght400_grad0_opsz48"
             app:layout_constraintBottom_toBottomOf="@+id/helpFloatingButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/helpFloatingButton"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="@color/detalle"
-            />
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/helpFloatingButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/detalle"
             android:clickable="true"
+            android:contentDescription="Ayuda"
             android:src="@drawable/help_center_fill0_wght400_grad0_opsz48"
             app:layout_constraintEnd_toStartOf="@+id/backDeviceButton"
-            app:layout_constraintTop_toBottomOf="@+id/fragmentHolderDeviceData"
-            android:backgroundTint="@color/detalle"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/fragmentHolderDeviceData" />
 
         <Button
             android:id="@+id/testDeviceButton"
@@ -143,15 +145,30 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/detalle"
+            android:contentDescription="Probar"
             android:text="Probar"
             app:layout_constraintBottom_toBottomOf="@+id/helpFloatingButton"
             app:layout_constraintEnd_toStartOf="@+id/helpFloatingButton"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/helpFloatingButton"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/addDeviceButton"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/detalle"
-            />
+            android:contentDescription="Añadir"
+            android:text="Añadir dispositivo"
+            app:layout_constraintEnd_toEndOf="@+id/backDeviceButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/testDeviceButton"
+            app:layout_constraintTop_toBottomOf="@+id/helpFloatingButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
