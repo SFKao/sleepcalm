@@ -100,22 +100,15 @@ public class DeviceInputFragment extends DialogFragment {
         });
 
         addDeviceButton.setOnClickListener(v -> {
-            Device dev = getDevice();
-            if(deviceEdit==null) {
-                try {
-                    DevicesRealm.addDevice(dev);
-                    dismiss();
-                } catch (IllegalStateException e) {
-                    Toast.makeText(context, "Hay un error en " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }else{
-                try {
+            try {
+                Device dev = getDevice();
+                if (deviceEdit != null) {
                     dev.setId(deviceEdit.getId());
-                    DevicesRealm.addDevice(dev);
-                    dismiss();
-                } catch (IllegalStateException e) {
-                    Toast.makeText(context, "Hay un error en " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+                DevicesRealm.addDevice(dev);
+                dismiss();
+            } catch (IllegalStateException e) {
+                Toast.makeText(context, "Hay un error en " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

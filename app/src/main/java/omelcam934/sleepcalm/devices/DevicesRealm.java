@@ -21,4 +21,9 @@ public class DevicesRealm {
             EndpointDeviceRealm.insertOrUpdate((EndpointDevice) device);
     }
 
+    public static void borrarDevice(Device device){
+        if(device instanceof EndpointDevice)
+            EndpointDeviceRealm.borrarEndpointDevice((EndpointDevice) device);
+    }
+
 }

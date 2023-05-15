@@ -17,6 +17,7 @@ import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.MainActivity;
 import omelcam934.sleepcalm.adapter.DevicesAdapter;
 import omelcam934.sleepcalm.devices.Device;
+import omelcam934.sleepcalm.devices.DevicesRealm;
 
 public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemClickListener {
 
@@ -70,9 +71,32 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
             modo = EDITAR;
         });
 
+        borrarFloatingButton.setOnClickListener(v -> {
+            Toast.makeText(context, "Pulsa sobre el que desees borrar", Toast.LENGTH_SHORT).show();
+            modo = BORRAR;
+        });
+
         devicesAdapter = new DevicesAdapter(this);
         recyclerDispositivos.setAdapter(devicesAdapter);
 
+    }
+
+    @Override
+    public boolean onItemClicked(Device device) {
+
+        switch (modo){
+            case EDITAR:
+                new DeviceInputFragment(device).show(context.getSupportFragmentManager(), "Editar dispositivo");
+                devicesAdapter.update();
+                modo = NORMAL;
+                return true;
+            case BORRAR:
+                DevicesRealm.borrarDevice(device);
+                devicesAdapter.update();
+                modo = NORMAL;
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -101,18 +125,5 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
         recyclerDispositivos = (RecyclerView) context.findViewById(R.id.recyclerDispositivos);
     }
 
-    @Override
-    public boolean onItemClicked(Device device) {
 
-        switch (modo){
-            case EDITAR:
-                new DeviceInputFragment(device).show(context.getSupportFragmentManager(), "Editar dispositivo");
-                return true;
-            case BORRAR:
-
-
-                return true;
-        }
-        return false;
-    }
 }
