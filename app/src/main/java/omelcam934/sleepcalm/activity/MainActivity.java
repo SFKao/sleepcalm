@@ -26,8 +26,6 @@ import omelcam934.sleepcalm.services.SleepService;
 public class MainActivity extends AppCompatActivity {
 
     private SleepService sleepService;
-    private ServiceConnection sleepServiceConnection;
-    private boolean isSleepServiceBound = false;
     private FragmentContainerView fragmentHolder;
     private BottomNavigationView bottomNavigation;
 
@@ -36,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Inicializar realm
         Realm.init(this);
+
+        SleepService.getSleepService().setContext(this);
 
         String realmName = "Devices";
         RealmConfiguration config = new RealmConfiguration.Builder()
@@ -46,21 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Realm.setDefaultConfiguration(config);
 
-
-        //Creacion del sleep service
-        sleepServiceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                sleepService = ((SleepService.SleepBinder) service).getService();
-                sleepService.setContext(MainActivity.this);
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                sleepService = null;
-            }
-        };
-        doBindService();
         setContentView(R.layout.activity_main);
         initView();
     }
@@ -104,27 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void doBindService() {
-        System.out.println("AAAAAAAA");
-        System.out.println(bindService(new Intent(this, SleepService.class), sleepServiceConnection, Context.BIND_AUTO_CREATE));
-        isSleepServiceBound = true;
-    }
-
-    private void doUnbindService() {
-        if (isSleepServiceBound) {
-            if (sleepService != null) {
-                ApiService.sendTestMessage("Matando servicio");
-                unbindService(sleepServiceConnection);
-                sleepService = null;
-            }
-        }
-    }
-
-
     @Override
     protected void onStop() {
         super.onStop();
-        doUnbindService();
     }
 
     public SleepService getSleepService() {
