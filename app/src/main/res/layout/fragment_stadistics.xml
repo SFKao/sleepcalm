@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.StadisticsFragment"
+
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/listening_button"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="80dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/horasDormidasDia"
+
+            android:text="\?"
+            android:textColor="@color/contrasteDetalle"
+            android:gravity="center"
+            android:textSize="100sp"
+            />
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:text="Horas de sueño"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/contrasteDetalle"
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounder_corners"
+        android:orientation="horizontal"
+        android:layout_marginBottom="80dp"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="L"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasLunesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="M"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasMartesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasMiercolesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="J"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasJuevesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="V"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasViernesText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasSabadoText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/horasDomingoText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="\?"
+                android:textColor="@color/detalle"
+                android:gravity="center"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounder_corners"
+        android:drawableEnd="@drawable/calendar_month_fill0_wght400_grad0_opsz48"
+        android:drawableTint="@color/detalle"
+        android:gravity="center"
+        android:text="\?"
+        android:textColor="@color/detalle"
+        android:textSize="20sp" />
+
+
+</LinearLayout>

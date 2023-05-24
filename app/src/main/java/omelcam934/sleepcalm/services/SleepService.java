@@ -1,18 +1,16 @@
 package omelcam934.sleepcalm.services;
 
 import omelcam934.sleepcalm.activity.MainActivity;
+import omelcam934.sleepcalm.devices.DevicesRealm;
+import omelcam934.sleepcalm.endpoint.EndpointDeviceApiService;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.SleepClassifyEvent;
@@ -21,7 +19,6 @@ import com.google.android.gms.location.SleepSegmentRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -38,10 +35,9 @@ public class SleepService extends BroadcastReceiver {
     private boolean active = false;
 
     private static final int CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP = 3;
-    private final int[] sleepTracker = new int[CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP];
-    private int newSleepTrackerPos = 0;
+    private int[] sleepTracker = new int[CONSECUTIVE_SLEEP_EVENTS_TO_BE_CONSIDERED_ASLEEP];
 
-    private static final int CONFIDENCE_TO_BE_CONSIDERED_ASLEEP = 265;
+    private static final int CONFIDENCE_TO_BE_CONSIDERED_ASLEEP = 92;
 
     public boolean userAsleep = false;
 
@@ -79,10 +75,6 @@ public class SleepService extends BroadcastReceiver {
         }
     }
 
-    public boolean getStatus(){
-        return active;
-    }
-
 
     /**
      * Comienza a recibir actualizaciones sobre el sueño del usuario
@@ -93,7 +85,7 @@ public class SleepService extends BroadcastReceiver {
         userAsleep = false;
 
         Log.d("MIMIR", "activando listener");
-        ApiService.sendTestMessage("activando listener");
+        EndpointDeviceApiService.sendTestMessage("activando listener");
 
         sleepReceiverPendingIntent = createSleepReceiverPendingIntent(context);
         Task<Void> task = ActivityRecognition.getClient(context).requestSleepSegmentUpdates(
@@ -109,7 +101,7 @@ public class SleepService extends BroadcastReceiver {
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Escuchando...", Toast.LENGTH_SHORT).show();
                 Log.d("MIMIR", "Escuchando...");
-                ApiService.sendTestMessage("Escuchando...");
+                EndpointDeviceApiService.sendTestMessage("Escuchando...");
             }
         });
     }
@@ -119,9 +111,7 @@ public class SleepService extends BroadcastReceiver {
      */
     private void deactivateListener(){
         Log.d("MIMIR", "desactivando listener");
-        ApiService.sendTestMessage("desactivando listener");
-        Arrays.fill(sleepTracker, 0);
-
+        EndpointDeviceApiService.sendTestMessage("desactivando listener");
         Task<Void> task = ActivityRecognition.getClient(context).removeSleepSegmentUpdates(sleepReceiverPendingIntent);
 
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -129,7 +119,7 @@ public class SleepService extends BroadcastReceiver {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("MIMIR", "Parada la escucha.");
-                ApiService.sendTestMessage("Parada la escucha");
+                EndpointDeviceApiService.sendTestMessage("Parada la escucha");
             }
         });
 
@@ -146,6 +136,7 @@ public class SleepService extends BroadcastReceiver {
     /**
      * Se llama al recibir un mensaje de los servicios.
      * @param context contexto desde el que lo recive
+     * @param intent contiene la informacion del evento
      * @param intent contiene la informacion
      */
     @Override
@@ -156,41 +147,50 @@ public class SleepService extends BroadcastReceiver {
 
             List<SleepSegmentEvent> events = SleepSegmentEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de segmento "+events);
-            ApiService.sendSegmento("eventos de segmento "+events);
+            EndpointDeviceApiService.sendSegmento("eventos de segmento "+events);
 
+            EndpointDeviceApiService.sendTestMessage(DevicesRealm.getAllDevices().toString());
             //TODO: Enviar al back
 
         }else if(SleepClassifyEvent.hasEvents(intent)){
             //Los eventos de classify contienen la confiazna de que el usuario se haya dormido.
             List<SleepClassifyEvent> events = SleepClassifyEvent.extractEvents(intent);
             Log.d("MIMIR", "eventos de clasificar "+events);
-            ApiService.sendClassify("eventos de clasificar "+events);
+            EndpointDeviceApiService.sendClassify("eventos de clasificar "+events);
+
+            EndpointDeviceApiService.sendTestMessage(DevicesRealm.getAllDevices().toString());
 
             events.forEach(event -> {
-
-                //Si el usuario esta dormido no continuaremos
-                if(userAsleep)
-                    return;
-
-                sleepTracker[newSleepTrackerPos++%sleepTracker.length] = event.getConfidence();
-
-                //Si alguna de las entradas no es mayor que la confianza requerida lo desactivo.
-                int sum = 0;
-                for (int j : sleepTracker)
-                    sum += j;
-                ApiService.sendClassify("ARRAY: "+Arrays.toString(sleepTracker)+ " SUM:"+sum+" TRACKERPOS: "+newSleepTrackerPos);
-                if(sum<CONFIDENCE_TO_BE_CONSIDERED_ASLEEP)
-                    return;
-
-                //Si ha llegado hasta aqui, es que el usuario esta dormido.
-                IOTService.getIotService().executeCommands();
-                userAsleep = true;
-
-                //No apagamos el servicio ya que apagarlo dejara de obtener los datos para mas adelante las estadisticas.
-
-
+                addSleepTrack(event.getConfidence());
             });
             //TODO: Enviar al back
         }
     }
+
+    /**
+     * Añade la confianza del ultimo evento.
+     * @param confidence confianza de que el usuario esta dormido
+     */
+    public void addSleepTrack(int confidence){
+        //Si el usuario esta dormido no continuaremos
+        if(userAsleep)
+            return;
+
+        //Comienzo shifteando las posiciones dejando la primera vacia.
+        if (sleepTracker.length - 1 >= 0)
+            System.arraycopy(sleepTracker, 0, sleepTracker, 1, sleepTracker.length - 1);
+
+        sleepTracker[0] = confidence;
+        //Si alguna de las entradas no es mayor que la confianza requerida lo desactivo.
+        for (int j : sleepTracker)
+            if (j < CONFIDENCE_TO_BE_CONSIDERED_ASLEEP)
+                return;
+
+        //Si ha llegado hasta aqui, es que el usuario esta dormido.
+        IOTService.getIotService().executeCommands();
+        userAsleep = true;
+
+        //No apagamos el servicio ya que apagarlo dejara de obtener los datos para mas adelante las estadisticas.
+    }
 }
+

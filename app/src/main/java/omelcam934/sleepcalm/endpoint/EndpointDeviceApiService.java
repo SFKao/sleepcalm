@@ -1,8 +1,6 @@
-package omelcam934.sleepcalm.services;
+package omelcam934.sleepcalm.endpoint;
 
 import androidx.annotation.NonNull;
-
-import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -11,7 +9,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiService {
+public class EndpointDeviceApiService {
 
     public static void executeApiCall(String baseURL, String path){
         System.out.println(baseURL+path);
@@ -20,7 +18,7 @@ public class ApiService {
                 .baseUrl(baseURL)
                 .build();
 
-        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+        EndpointDeviceApiServiceInterface service = retrofit.create(EndpointDeviceApiServiceInterface.class);
 
         Call<ResponseBody> call = service.executeApiCall(path);
 
@@ -45,7 +43,7 @@ public class ApiService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+        EndpointDeviceApiServiceInterface service = retrofit.create(EndpointDeviceApiServiceInterface.class);
 
         Call<String> stringCall = service.enviarMensajeAlServidorDePrueba(new Mensaje(mensaje));
 
@@ -68,7 +66,7 @@ public class ApiService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+        EndpointDeviceApiServiceInterface service = retrofit.create(EndpointDeviceApiServiceInterface.class);
 
         Call<String> stringCall = service.enviarClassify(new Mensaje(mensaje));
 
@@ -91,7 +89,7 @@ public class ApiService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiServiceInterface service = retrofit.create(ApiServiceInterface.class);
+        EndpointDeviceApiServiceInterface service = retrofit.create(EndpointDeviceApiServiceInterface.class);
 
         Call<String> stringCall = service.enviarSegmento(new Mensaje(mensaje));
 

@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
-import omelcam934.sleepcalm.services.ApiService;
+import omelcam934.sleepcalm.endpoint.EndpointDeviceApiService;
 
 public class EndpointDevice extends RealmObject implements Device{
 
@@ -121,6 +121,6 @@ public class EndpointDevice extends RealmObject implements Device{
         String url = endpoint;
         if(parametros != null)
             url+="?"+parametros;
-        ApiService.executeApiCall("http://"+ip+":"+puerto+"/", url);
+        EndpointDeviceApiService.executeApiCall("http://"+ip+":"+puerto+"/", url);
     }
 }

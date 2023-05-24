@@ -1,5 +1,7 @@
 package omelcam934.sleepcalm.services;
 
+import omelcam934.sleepcalm.endpoint.EndpointDeviceApiService;
+
 public class IOTService {
 
     private static IOTService iotService;
@@ -12,7 +14,7 @@ public class IOTService {
     }
 
     public void executeCommands(){
-        ApiService.sendTestMessage("*\n*\nUSUARIO DORMIDO\n*\n*");
+        EndpointDeviceApiService.sendTestMessage("*\n*\nUSUARIO DORMIDO\n*\n*");
     }
 
 }

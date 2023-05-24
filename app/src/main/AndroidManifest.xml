@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Requerido para poder detectar el sueño -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +14,14 @@
         android:roundIcon="@drawable/icono"
         android:supportsRtl="true"
         android:theme="@style/Theme.SleepCalm"
-        android:usesCleartextTraffic="true"
-        >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
@@ -31,16 +36,11 @@
                 android:value="" />
         </activity>
 
-        <receiver android:name=".services.SleepService"
+        <receiver
+            android:name=".services.SleepService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.ACTIVITY_RECOGNITION" />
-
-        <service android:name=".services.SleepService"
-            android:permission="android.permission.ACTIVITY_RECOGNITION"
-            android:enabled="true"
-            android:exported="true"
-            />
     </application>
 
 </manifest>

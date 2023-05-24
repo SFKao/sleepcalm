@@ -1,12 +1,9 @@
 package omelcam934.sleepcalm.activity;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.os.StrictMode;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +12,17 @@ import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import omelcam934.sleepcalm.R;
+import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 import omelcam934.sleepcalm.fragment.DevicesFragment;
 import omelcam934.sleepcalm.fragment.ListenerFragment;
-import omelcam934.sleepcalm.services.ApiService;
+import omelcam934.sleepcalm.fragment.StadisticsFragment;
+import omelcam934.sleepcalm.fragment.UserFragment;
+import omelcam934.sleepcalm.services.LoginService;
 import omelcam934.sleepcalm.services.SleepService;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         Realm.setDefaultConfiguration(config);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_main);
         initView();
     }
@@ -66,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_dispositivos:
                         changeFragment(new DevicesFragment());
                         return true;
+                    case R.id.menu_estadisticas:
+                        changeFragment(new StadisticsFragment());
+                        return true;
+                    case R.id.menu_usuario:
+                        changeFragment(new UserFragment());
+                        return true;
                 }
 
 
@@ -79,6 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        try {
+            LoginService.autoLogin(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidLoginException e) {
+
+        }
 
     }
 
