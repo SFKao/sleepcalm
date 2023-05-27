@@ -95,7 +95,7 @@ public class StadisticsFragment extends Fragment {
         calendar.setTime(searchDate);
         int buttonDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         DateFormat dateFormat = BackendApiService.dateFormat;
-
+        boolean diaActualCambiado = false;
         try {
             for (SleepTrackDto dia : week.getWeekSleepTracks()) {
                 calendar.setTime(Objects.requireNonNull(dateFormat.parse(dia.getDia())));
@@ -103,6 +103,7 @@ public class StadisticsFragment extends Fragment {
                 String horasYMinutos = calculateTimeBetweenSleepTrack(dia);
                 if(indiceDia == buttonDayOfWeek){
                     horasDormidasDia.setText(horasYMinutos);
+                    diaActualCambiado = true;
                 }
                 switch (indiceDia){
                     case 1:
@@ -128,6 +129,8 @@ public class StadisticsFragment extends Fragment {
                         break;
                 }
             }
+            if(!diaActualCambiado)
+                horasDormidasDia.setText("?");
         } catch (ParseException e) {
             Toast.makeText(context, "El formato del dateFormat es invalido", Toast.LENGTH_SHORT).show();
         }
