@@ -15,11 +15,15 @@ import com.google.android.gms.location.SleepSegmentEvent;
 import com.google.android.gms.location.SleepSegmentRequest;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import omelcam934.sleepcalm.activity.MainActivity;
+import omelcam934.sleepcalm.endpoint.BackendApiService;
 import omelcam934.sleepcalm.endpoint.EndpointDeviceApiService;
+import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
+import omelcam934.sleepcalm.services.sleeptrack.LocalSleepTrack;
 import omelcam934.sleepcalm.services.sleeptrack.LocalSleepTrackRealm;
 
 
@@ -119,9 +123,7 @@ public class SleepService extends BroadcastReceiver {
             Log.d("MIMIR", "Parada la escucha.");
             EndpointDeviceApiService.sendTestMessage("Parada la escucha");
             if(LocalSleepTrackRealm.isUserAsleep()){
-
                 sendDataToBack();
-
                 this.active = false;
             }
         });
@@ -131,7 +133,11 @@ public class SleepService extends BroadcastReceiver {
     private void sendDataToBack(){
         EndpointDeviceApiService.sendTestMessage(LocalSleepTrackRealm.getHoraDeiInicio().toString());
         EndpointDeviceApiService.sendTestMessage(new Date().toString());
-        //TODO: Enviar al back
+
+        try {
+            BackendApiService.postSleepTrack(context, LocalSleepTrackRealm.getHoraDeiInicio(), new Date());
+        } catch (InvalidLoginException | IOException ignored) {}
+
     }
 
     /**

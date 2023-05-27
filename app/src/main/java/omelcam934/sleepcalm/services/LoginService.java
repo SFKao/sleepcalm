@@ -30,6 +30,7 @@ public class LoginService {
         Log.d("MIMIR","Iniciando login");
         token = BackendApiService.login(usernameOrEmail,password);
         Log.d("MIMIR","TOKEN: "+token);
+        Log.d("MIMIR", usernameOrEmail+" "+password);
         
         if(saveLogin) {
             Log.d("MIMIR","Guardando datos del login");
@@ -132,5 +133,9 @@ public class LoginService {
         Log.d("MIMIR","Lanzando login con datos recogidos");
         login(usernameOrEmail,password,context,false);
         Log.d("MIMIR","Terminado auto login");
+    }
+
+    public static void logout(){
+        token = null;
     }
 }

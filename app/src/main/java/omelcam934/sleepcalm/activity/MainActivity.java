@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
 
+    private static boolean isRealmActive = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +39,22 @@ public class MainActivity extends AppCompatActivity {
 
         SleepService.getSleepService().setContext(this);
 
-        String realmName = "devices.realm";
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name(realmName)
-                .allowQueriesOnUiThread(true)
-                .allowWritesOnUiThread(true)
-                .compactOnLaunch()
-                .build();
+        if(!isRealmActive) {
+            String realmName = "devices.realm";
+            RealmConfiguration config = new RealmConfiguration.Builder()
+                    .name(realmName)
+                    .allowQueriesOnUiThread(true)
+                    .allowWritesOnUiThread(true)
+                    .compactOnLaunch()
+                    .build();
 
-        Realm.setDefaultConfiguration(config);
+            Realm.setDefaultConfiguration(config);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
 
+            isRealmActive = true;
+        }
         setContentView(R.layout.activity_main);
         initView();
     }

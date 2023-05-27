@@ -22,24 +22,24 @@ public interface BackendApiServiceInterface {
     Call<String> login(@Body LoginDto loginDto);
 
     @GET("user")
-    Call<UserDto> getUser(@Header("Authoritation")String authHeader);
+    Call<UserDto> getUser(@Header("Authorization")String authHeader);
 
     @PUT("user")
-    Call<UserDto> putUser(@Header("Authoritation")String authHeader, @Body UserDto userDto);
+    Call<UserDto> putUser(@Header("Authorization")String authHeader, @Body UserDto userDto);
 
     @GET("sleeptrack")
-    Call<WeekDto> getCurrentWeek(@Header("Authoritation")String authHeader);
+    Call<WeekDto> getCurrentWeek(@Header("Authorization")String authHeader);
 
     @POST("sleeptrack")
-    Call<SleepTrackDto> postSleepTrack(@Header("Authoritation")String authHeader, @Body SleepTrackDto sleepTrackDto);
+    Call<SleepTrackDto> postSleepTrack(@Header("Authorization")String authHeader, @Body SleepTrackDto sleepTrackDto);
 
     @PUT("sleeptrack")
-    Call<SleepTrackDto> putSleepTrack(@Header("Authoritation")String authHeader, @Body SleepTrackDto sleepTrackDto);
+    Call<SleepTrackDto> putSleepTrack(@Header("Authorization")String authHeader, @Body SleepTrackDto sleepTrackDto);
 
     @GET("sleeptrack/week=diaSemana={dia}")
-    Call<WeekDto> getWeek(@Header("Authoritation")String authHeader, @Path("dia") String dia);
+    Call<WeekDto> getWeek(@Header("Authorization")String authHeader, @Path("dia") String dia);
 
     @GET("user/checktoken")
-    Call<Boolean> checkToken(@Header("Authoritation")String authHeader);
+    Call<Boolean> checkToken(@Header("Authorization")String authHeader);
 
 }
