@@ -1,13 +1,13 @@
 package omelcam934.sleepcalm.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.telecom.Call;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -48,7 +47,6 @@ public class StadisticsFragment extends Fragment {
     private Button weekButton;
 
     private final DateFormat buttonDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("es-ES"));
-    private Date buttonDate = new Date();
 
     public StadisticsFragment() {
         // Required empty public constructor
@@ -61,8 +59,7 @@ public class StadisticsFragment extends Fragment {
 
         if(LoginService.isLoguedIn()) {
             try {
-                printWeek(BackendApiService.getCurrentWeek(context));
-                weekButton.setText(buttonDateFormat.format(buttonDate));
+                printWeek(BackendApiService.getCurrentWeek(context), new Date());
             } catch (InvalidLoginException e) {
                 Toast.makeText(context, "Se ha cerrado sesion", Toast.LENGTH_SHORT).show();
                 LoginService.logout();
@@ -70,13 +67,18 @@ public class StadisticsFragment extends Fragment {
                 Toast.makeText(context, "No se ha podido realizar la conexion con el back", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
+
+            weekButton.setOnClickListener(view -> showDatePickerDialog());
+
+
         }else{
             Toast.makeText(context, "Necesitas iniciar sesión para ello", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-    private void printWeek(WeekDto week){
+    private void printWeek(WeekDto week, Date searchDate){
+        weekButton.setText(buttonDateFormat.format(searchDate));
+
         //Si no hay dias esa semana
         if(week.getWeekSleepTracks().size()==0){
             horasLunesText.setText("?");
@@ -86,12 +88,12 @@ public class StadisticsFragment extends Fragment {
             horasViernesText.setText("?");
             horasSabadoText.setText("?");
             horasDomingoText.setText("?");
+            horasDormidasDia.setText("?");
             return;
         }
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(buttonDate);
+        calendar.setTime(searchDate);
         int buttonDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
         DateFormat dateFormat = BackendApiService.dateFormat;
 
         try {
@@ -141,6 +143,26 @@ public class StadisticsFragment extends Fragment {
         return hours+":"+(minutes<10?"0"+minutes:minutes);
     }
 
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context);
+        datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            Date searchDate = calendar.getTime();
+            try {
+                printWeek(BackendApiService.getWeek(context, searchDate), searchDate);
+            } catch (InvalidLoginException | IOException e) {
+                Toast.makeText(context, "No se ha podido conectar al backend", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        });
+
+        datePickerDialog.show();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,14 +183,14 @@ public class StadisticsFragment extends Fragment {
 
 
     private void initView() {
-        horasDormidasDia = (TextView) context.findViewById(R.id.horasDormidasDia);
-        horasLunesText = (TextView) context.findViewById(R.id.horasLunesText);
-        horasMartesText = (TextView) context.findViewById(R.id.horasMartesText);
-        horasMiercolesText = (TextView) context.findViewById(R.id.horasMiercolesText);
-        horasJuevesText = (TextView) context.findViewById(R.id.horasJuevesText);
-        horasViernesText = (TextView) context.findViewById(R.id.horasViernesText);
-        horasSabadoText = (TextView) context.findViewById(R.id.horasSabadoText);
-        horasDomingoText = (TextView) context.findViewById(R.id.horasDomingoText);
-        weekButton = (Button) context.findViewById(R.id.weekButton);
+        horasDormidasDia = context.findViewById(R.id.horasDormidasDia);
+        horasLunesText = context.findViewById(R.id.horasLunesText);
+        horasMartesText = context.findViewById(R.id.horasMartesText);
+        horasMiercolesText = context.findViewById(R.id.horasMiercolesText);
+        horasJuevesText = context.findViewById(R.id.horasJuevesText);
+        horasViernesText = context.findViewById(R.id.horasViernesText);
+        horasSabadoText = context.findViewById(R.id.horasSabadoText);
+        horasDomingoText = context.findViewById(R.id.horasDomingoText);
+        weekButton = context.findViewById(R.id.weekButton);
     }
 }

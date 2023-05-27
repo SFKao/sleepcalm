@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BackendApiServiceInterface {
 
@@ -36,8 +37,8 @@ public interface BackendApiServiceInterface {
     @PUT("sleeptrack")
     Call<SleepTrackDto> putSleepTrack(@Header("Authorization")String authHeader, @Body SleepTrackDto sleepTrackDto);
 
-    @GET("sleeptrack/week=diaSemana={dia}")
-    Call<WeekDto> getWeek(@Header("Authorization")String authHeader, @Path("dia") String dia);
+    @GET("sleeptrack/week")
+    Call<WeekDto> getWeek(@Header("Authorization")String authHeader, @Query("diaSemana") String dia);
 
     @GET("user/checktoken")
     Call<Boolean> checkToken(@Header("Authorization")String authHeader);
