@@ -35,6 +35,16 @@ public class EndpointDeviceRealm {
         });
     }
 
+    public static List<Device> getActiveEndpointDevices(){
+        Realm realm = Realm.getDefaultInstance();
+        final ArrayList<Device> devices = new ArrayList<>();
+        realm.executeTransaction(realm1 -> {
+            RealmResults<EndpointDevice> all = realm1.where(EndpointDevice.class).equalTo("active",true).findAll();
+            devices.addAll(all);
+        });
+        return devices;
+    }
+
 
 
 }

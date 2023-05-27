@@ -6,16 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import java.io.IOException;
-
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.LoginActivity;
-import omelcam934.sleepcalm.endpoint.BackendApiService;
-import omelcam934.sleepcalm.services.LoginService;
+import omelcam934.sleepcalm.services.SleepService;
+import omelcam934.sleepcalm.services.sleeptrack.LocalSleepTrackRealm;
 
 
 public class UserFragment extends Fragment {
@@ -50,21 +47,12 @@ public class UserFragment extends Fragment {
         });
 
         checkTokenButton.setOnClickListener(view -> {
-            try {
-                if(BackendApiService.checkToken(LoginService.getToken())){
-                    Toast.makeText(getContext(), "LOGUED IN", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(), "NOT", Toast.LENGTH_SHORT).show();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), "CRASH", Toast.LENGTH_SHORT).show();
-            }
+            SleepService.getSleepService().addSleepTrack(100);
         });
     }
 
     private void initView() {
-        goToLoginButton = (Button) getActivity().findViewById(R.id.goToLoginButton);
-        checkTokenButton = (Button) getActivity().findViewById(R.id.checkTokenButton);
+        goToLoginButton = getActivity().findViewById(R.id.goToLoginButton);
+        checkTokenButton = getActivity().findViewById(R.id.checkTokenButton);
     }
 }

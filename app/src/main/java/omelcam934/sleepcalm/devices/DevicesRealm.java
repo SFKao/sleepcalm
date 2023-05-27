@@ -26,4 +26,11 @@ public class DevicesRealm {
             EndpointDeviceRealm.borrarEndpointDevice((EndpointDevice) device);
     }
 
+    public static List<Device> getAllActiveDevices(){
+        List<Device> devices = new ArrayList<>();
+        devices.addAll(EndpointDeviceRealm.getActiveEndpointDevices());
+
+        return devices;
+    }
+
 }

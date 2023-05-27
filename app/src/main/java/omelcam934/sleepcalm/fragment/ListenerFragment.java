@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,9 @@ import com.google.android.material.snackbar.Snackbar;
 import omelcam934.sleepcalm.BuildConfig;
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.MainActivity;
+import omelcam934.sleepcalm.devices.DevicesRealm;
 import omelcam934.sleepcalm.services.SleepService;
+import omelcam934.sleepcalm.services.sleeptrack.LocalSleepTrackRealm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,7 +104,10 @@ public class ListenerFragment extends Fragment {
         //Obtiene los componentes de la vista
         initView();
 
+        this.listening = SleepService.getSleepService().isActive();
+
         listenButton.setOnClickListener(view ->{
+
             //Miro los permisos
             if (!checkRecognitionPermission()) {
                 Toast.makeText(context, "No se tienen los permisos para funcionar", Toast.LENGTH_SHORT).show();
@@ -110,14 +116,14 @@ public class ListenerFragment extends Fragment {
             }
 
             //Cambio el estado de escucha
-            this.listening = ! this.listening;
-
-            SleepService.getSleepService().changeStatus(listening);
-
+            SleepService.getSleepService().changeStatus(!listening);
+            this.listening = !listening;
             listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
+            listeningStatusText.setText(this.listening ? "Escuchando..." : "Listo para escuchar.");
         });
 
         listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
+        devicesText.setText(DevicesRealm.getAllActiveDevices().size() + " dispositivos programados para su desactivación.");
     }
 
     /**

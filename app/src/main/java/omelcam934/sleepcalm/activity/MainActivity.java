@@ -27,8 +27,6 @@ import omelcam934.sleepcalm.services.SleepService;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SleepService sleepService;
-    private FragmentContainerView fragmentHolder;
     private BottomNavigationView bottomNavigation;
 
     @Override
@@ -39,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         SleepService.getSleepService().setContext(this);
 
-        String realmName = "Devices";
+        String realmName = "devices.realm";
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .name(realmName)
                 .allowQueriesOnUiThread(true)
                 .allowWritesOnUiThread(true)
                 .compactOnLaunch()
                 .build();
+
         Realm.setDefaultConfiguration(config);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             LoginService.autoLogin(this);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InvalidLoginException e) {
+        } catch (InvalidLoginException ignored) {
 
         }
 
@@ -113,12 +112,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    public SleepService getSleepService() {
-        return sleepService;
-    }
+
 
     private void initView() {
-        fragmentHolder = (FragmentContainerView) findViewById(R.id.fragment_holder);
+
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
     }
 }
