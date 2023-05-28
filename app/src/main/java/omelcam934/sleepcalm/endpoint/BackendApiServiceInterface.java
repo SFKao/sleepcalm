@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 public interface BackendApiServiceInterface {
 
     @POST("auth/registro")
-    Call<String> registrar(@Body RegistroDto registroDto);
+    Call<Boolean> registrar(@Body RegistroDto registroDto);
 
     @POST("auth/login")
     Call<String> login(@Body LoginDto loginDto);

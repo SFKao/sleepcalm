@@ -66,7 +66,14 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
     public String[] getData() {
         if(!Pattern.matches("^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$", deviceEndpointIp.getText().toString()))
             throw new IllegalStateException("IP");
-        int puerto = Integer.parseInt(deviceEndpointPuerto.getText().toString());
+
+        int puerto = 80;
+        if(!deviceEndpointPuerto.getText().toString().equals(""))
+            try{
+            puerto = Integer.parseInt(deviceEndpointPuerto.getText().toString());
+            }catch (NumberFormatException e) {
+                throw new IllegalStateException("Puerto");
+            }
         if(!(puerto>0 && puerto < 65565))
             throw new IllegalStateException("Puerto");
 

@@ -50,6 +50,11 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
+        registerButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
+
         usernameOrEmailEdit.setText("omelcam934");
         passwordEdit.setText("stallman");
 

@@ -43,12 +43,12 @@ public class BackendApiService {
      * @throws EmailOrUsernameInUseException si el email o username esta en uso
      * @throws InvalidEmailException si el email es invalido
      */
-    public static void registro(String username, String email, String password) throws IOException, EmailOrUsernameInUseException, InvalidEmailException, InvalidLoginException {
+    public static void registro(String username, String email, String password, Context context) throws IOException, EmailOrUsernameInUseException, InvalidEmailException, InvalidLoginException {
 
         BackendApiServiceInterface backendApiServiceInterface = retrofit.create(BackendApiServiceInterface.class);
         RegistroDto payload = new RegistroDto(username,email,password);
-        Call<String> call = backendApiServiceInterface.registrar(payload);
-        Response<String> response = call.execute();
+        Call<Boolean> call = backendApiServiceInterface.registrar(payload);
+        Response<Boolean> response = call.execute();
 
         if(!response.isSuccessful()){
             switch (response.code()){
@@ -60,7 +60,7 @@ public class BackendApiService {
                     throw new IOException(response.message());
             }
         }
-        login(username, password);
+        LoginService.login(username, password, context, true);
     }
 
     /**
