@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RegisterActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounder_corners"
+        android:gravity="center"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/detalle"
+            android:foregroundTint="@color/detalle"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            >
+
+            <EditText
+                android:id="@+id/usernameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:foregroundTint="@color/detalle"
+                android:hint="username"
+                android:inputType="text"
+                android:textColor="@color/detalle"
+                android:textStyle="bold"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/detalle"
+            android:foregroundTint="@color/detalle"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            >
+
+            <EditText
+                android:id="@+id/emailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:foregroundTint="@color/detalle"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/detalle"
+                android:textStyle="bold"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/detalle"
+        android:foregroundTint="@color/detalle"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:foregroundTint="@color/detalle"
+            android:hint="contraseña"
+            android:inputType="textPassword"
+            android:textColor="@color/detalle"
+            android:textStyle="bold"
+            android:id="@+id/passwordEdit"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/detalle"
+            android:foregroundTint="@color/detalle"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:foregroundTint="@color/detalle"
+                android:hint="repetir contraseña"
+                android:inputType="textPassword"
+                android:textColor="@color/detalle"
+                android:textStyle="bold"
+                android:id="@+id/repeatPasswordEdit"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/terminosSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="He leido y acepto los terminos y condiciones"
+            android:textColor="@color/detalle"
+            android:textSize="20sp"
+            app:thumbTint="@color/detalle"
+            app:trackTint="@color/contrasteFondo"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="Registrarse"
+            android:id="@+id/registrarseButton"
+            android:background="@drawable/rounder_corners"
+            android:backgroundTint="@color/contrasteFondo"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:text="Volver"
+            android:id="@+id/volverButton"
+            android:background="@drawable/rounder_corners"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

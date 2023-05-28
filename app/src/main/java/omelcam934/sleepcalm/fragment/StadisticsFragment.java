@@ -62,7 +62,12 @@ public class StadisticsFragment extends Fragment {
                 printWeek(BackendApiService.getCurrentWeek(context), new Date());
             } catch (InvalidLoginException e) {
                 Toast.makeText(context, "Se ha cerrado sesion", Toast.LENGTH_SHORT).show();
-                LoginService.logout();
+                try {
+                    LoginService.logout(context);
+                } catch (IOException ex) {
+                    Toast.makeText(context, "No se ha podido hacer logout", Toast.LENGTH_SHORT).show();
+                    ex.printStackTrace();
+                }
             } catch (IOException e) {
                 Toast.makeText(context, "No se ha podido realizar la conexion con el back", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();

@@ -3,11 +3,9 @@ package omelcam934.sleepcalm.endpoint;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BackendApiService {
 
     private static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://sfkao.bounceme.net:25577/api/")
+            //.baseUrl("http://sfkao.bounceme.net:25577/api/")
+            .baseUrl("http://192.168.18.4:8080/api/")
             .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
             .build();
 

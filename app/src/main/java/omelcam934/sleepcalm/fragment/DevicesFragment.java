@@ -83,16 +83,15 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
 
     @Override
     public boolean onItemClicked(Device device) {
-
         switch (modo){
             case EDITAR:
                 new DeviceInputFragment(device).show(context.getSupportFragmentManager(), "Editar dispositivo");
-                devicesAdapter.update();
+                devicesAdapter.notifyAll();
                 modo = NORMAL;
                 return true;
             case BORRAR:
                 DevicesRealm.borrarDevice(device);
-                devicesAdapter.update();
+                devicesAdapter.notifyAll();
                 modo = NORMAL;
                 return true;
         }

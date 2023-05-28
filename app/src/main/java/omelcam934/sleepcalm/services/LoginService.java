@@ -135,7 +135,31 @@ public class LoginService {
         Log.d("MIMIR","Terminado auto login");
     }
 
-    public static void logout(){
+    public static void logout(Context context) throws IOException {
         token = null;
+
+        String masterKeyAlias = null;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            throw new IOException(e);
+        }
+        SharedPreferences sharedPreferences = null;
+        try {
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    "loginSleepCalm",
+                    masterKeyAlias,
+                    context,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("usernameOrEmail");
+        editor.remove("password");
+        editor.apply();
     }
 }

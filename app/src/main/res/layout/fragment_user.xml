@@ -1,23 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.UserFragment"
     android:orientation="vertical"
+
+    android:background="@drawable/background"
     >
 
-    <Button
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOGIN"
-        android:id="@+id/goToLoginButton"
-        />
+        android:layout_height="match_parent"
+        android:layout_margin="50dp"
+        android:background="@drawable/rounder_corners_fondo"
+        app:layout_constraintBottom_toTopOf="@+id/borrarRegistrosButton"
+        app:layout_constraintTop_toTopOf="@+id/borrarRegistrosButton">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CHECK TOKEN"
-        android:id="@+id/checkTokenButton"/>
+        <TextView
+            android:id="@+id/avisoIniciarSesion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
+            android:text="Tienes que iniciar sesion"
+            android:textColor="@color/detalle"
+            android:textSize="30sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/editarPerfilButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rounder_corners"
+            android:drawableStart="@drawable/person_fill0_wght400_grad0_opsz48"
+            android:drawableTint="@color/detalle"
+            android:padding="10dp"
+            android:text="Editar perfil"
+            android:textColor="@color/detalle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/editarRegistroButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounder_corners"
+            android:drawableStart="@drawable/edit_fill0_wght400_grad0_opsz48"
+            android:drawableTint="@color/detalle"
+            android:padding="10dp"
+            android:text="Editar registros"
+            android:textColor="@color/detalle"
+            app:layout_constraintEnd_toEndOf="@+id/editarPerfilButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/editarPerfilButton"
+            app:layout_constraintTop_toBottomOf="@+id/editarPerfilButton" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/borrarRegistrosButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounder_corners"
+            android:drawableStart="@drawable/calendar_month_fill0_wght400_grad0_opsz48"
+            android:drawableTint="@color/detalle"
+            android:padding="10dp"
+            android:text="Borrar registro"
+            android:textColor="@color/detalle"
+            app:layout_constraintEnd_toEndOf="@+id/editarRegistroButton"
+            app:layout_constraintStart_toStartOf="@+id/editarRegistroButton"
+            app:layout_constraintTop_toBottomOf="@+id/editarRegistroButton" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounder_corners"
+            android:drawableStart="@drawable/logout_fill0_wght400_grad0_opsz48"
+            android:drawableTint="@color/detalle"
+            android:padding="10dp"
+            android:text="Login"
+            android:textColor="@color/detalle"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/avisoIniciarSesion"
+            app:layout_constraintStart_toStartOf="@+id/avisoIniciarSesion"
+            app:layout_constraintTop_toBottomOf="@+id/avisoIniciarSesion" />
+
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/rounder_corners"
+            android:contentDescription="Logout"
+            android:src="@drawable/logout_fill0_wght400_grad0_opsz48"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/detalle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>
