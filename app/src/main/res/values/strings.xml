@@ -84,4 +84,9 @@
     <string name="cual_deseas_editar">Pulsa sobre la que deseas editar</string>
     <string name="cual_deseas_borrar">Pulsa sobre el que desees borrar</string>
     <string name="opcion_incorrecta">Eso no es una opcion correcta</string>
+    <string name="no_hay_protocolo_seleccionado">No hay protocolo seleccionado</string>
+    <string name="no_se_tienen_permisos">No se tienen los permisos para funcionar</string>
+    <string name="escuchando">Escuchando...</string>
+    <string name="listo_para_escuchar">Listo para escuchar.</string>
+    <string name="dateFormat_invalido">El formato del dateFormat es invalido</string>
 </resources>

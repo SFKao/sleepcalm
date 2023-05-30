@@ -25,12 +25,19 @@ import omelcam934.sleepcalm.fragment.UserFragment;
 import omelcam934.sleepcalm.services.LoginService;
 import omelcam934.sleepcalm.services.SleepService;
 
+/**
+ * Activity principal donde esta todo
+ */
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
 
     private static boolean isRealmActive = false;
 
+    /**
+     * Se llama al crearse, inicializa las configuraciones la primera vez que se llama
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Añade los metodos a los botones
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -88,13 +97,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-
-            }
-        });
-
+        //Intento obtener un token
         try {
             LoginService.autoLogin(this);
         } catch (IOException e) {
@@ -105,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Cambio el contenido de la pantalla al fragmento elegido
+     * @param fragment
+     */
     private void changeFragment(Fragment fragment){
         getSupportFragmentManager()
                 .beginTransaction()
@@ -118,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Inicializa los componentes
+     */
     private void initView() {
 
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);

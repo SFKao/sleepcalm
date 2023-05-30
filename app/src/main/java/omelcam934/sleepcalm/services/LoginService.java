@@ -13,6 +13,9 @@ import java.security.GeneralSecurityException;
 import omelcam934.sleepcalm.endpoint.BackendApiService;
 import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 
+/**
+ * Servicio para encargarse de lo relacionado con el login y persistir los datos del usuario de forma segura
+ */
 public class LoginService {
 
     private static String token;
@@ -27,13 +30,11 @@ public class LoginService {
      * @throws IOException si hay un problema en la llamada
      */
     public static void login(String usernameOrEmail, String password, Context context, boolean saveLogin) throws InvalidLoginException, IOException {
-        Log.d("MIMIR","Iniciando login");
+
         token = BackendApiService.login(usernameOrEmail,password);
-        Log.d("MIMIR","TOKEN: "+token);
-        Log.d("MIMIR", usernameOrEmail+" "+password);
         
         if(saveLogin) {
-            Log.d("MIMIR","Guardando datos del login");
+
             String masterKeyAlias = null;
             try {
                 masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -59,7 +60,7 @@ public class LoginService {
             editor.apply();
             Log.d("MIMIR","Guardados datos");
         }
-        Log.d("MIMIR","Terminado login");
+
     }
 
     public static String getToken() {
@@ -70,6 +71,12 @@ public class LoginService {
         return token != null;
     }
 
+    /**
+     * Crea un nuevo token logueandose de nuevo
+     * @param context contexto desde donde se llama
+     * @throws IOException si no permite la conexion con el back o no se puede acceder al archivo
+     * @throws InvalidLoginException si los datos de login son invalidos
+     */
     public static void newToken(Context context) throws IOException, InvalidLoginException {
         Log.d("MIMIR","Creando nuevo token");
         String masterKeyAlias = null;
@@ -98,13 +105,19 @@ public class LoginService {
         String password = sharedPreferences.getString("password","");
 
         login(usernameOrEmail,password,context,false);
-        Log.d("MIMIR","Terminado de crear nuevo token");
+
     }
 
+    /**
+     * Hace login al iniciar la app
+     * @param context contexto desde donde se llama
+     * @throws IOException si no permite la conexion con el back o no se puede acceder al archivo
+     * @throws InvalidLoginException si los datos de login son invalidos
+     */
     public static void autoLogin(Context context) throws IOException, InvalidLoginException {
         if(token != null)
             return;
-        Log.d("MIMIR","Obteniendo datos para auto login");
+
         String masterKeyAlias = null;
         try {
             masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -130,11 +143,16 @@ public class LoginService {
         }
         String usernameOrEmail = sharedPreferences.getString("usernameOrEmail","");
         String password = sharedPreferences.getString("password","");
-        Log.d("MIMIR","Lanzando login con datos recogidos");
+
         login(usernameOrEmail,password,context,false);
-        Log.d("MIMIR","Terminado auto login");
+
     }
 
+    /**
+     * Cierra sesion y borra los datos del telefono
+     * @param context contexto desde donde se llama
+     * @throws IOException si no permite la conexion con el back o no se puede acceder al archivo
+     */
     public static void logout(Context context) throws IOException {
         token = null;
 

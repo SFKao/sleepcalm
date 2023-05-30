@@ -7,6 +7,9 @@ import java.util.Objects;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
+/**
+ * Clase para persistencia local de los datos del listener.
+ */
 public class LocalSleepTrack extends RealmObject {
 
     public static int ID = 1;

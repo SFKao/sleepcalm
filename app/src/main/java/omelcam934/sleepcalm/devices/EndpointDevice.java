@@ -7,6 +7,9 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import omelcam934.sleepcalm.endpoint.EndpointDeviceApiService;
 
+/**
+ * Representa un dispositivo inteligente activado por endpoint
+ */
 public class EndpointDevice extends RealmObject implements Device{
 
     public static final String TYPE = "Endpoint";
@@ -27,9 +30,22 @@ public class EndpointDevice extends RealmObject implements Device{
     private String endpoint;
     private String parametros;
 
+    /**
+     * Constructor vacio
+     */
     public EndpointDevice() {
     }
 
+    /**
+     * Constructor parametrizado
+     * @param nombre nombre del dispositivo
+     * @param icon id del icono
+     * @param active si esta activo
+     * @param ip ip del dispositivo
+     * @param puerto puerto del dispositivo
+     * @param endpoint endpoint al que acceder
+     * @param parametros parametros si se han de enviar
+     */
     public EndpointDevice(String nombre, int icon, boolean active, String ip, String puerto, String endpoint, String parametros) {
         this.nombre = nombre;
         this.icon = icon;
@@ -117,6 +133,9 @@ public class EndpointDevice extends RealmObject implements Device{
         return TYPE;
     }
 
+    /**
+     * Apaga el dispositivo
+     */
     public void apagar() {
         String url = endpoint;
         if(parametros != null)

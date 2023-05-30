@@ -19,11 +19,14 @@ import omelcam934.sleepcalm.adapter.DevicesAdapter;
 import omelcam934.sleepcalm.devices.Device;
 import omelcam934.sleepcalm.devices.DevicesRealm;
 
+/**
+ * Fragmento para listar todos los dispositivos
+ */
 public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemClickListener {
 
-    private static final String NORMAL = "NORMAL";
-    private static final String EDITAR = "EDITAR";
-    private static final String BORRAR = "BORRAR";
+    private static final int NORMAL = 1;
+    private static final int EDITAR = 2;
+    private static final int BORRAR = 3;
 
     private MainActivity context;
     private FloatingActionButton menuFloatingButton;
@@ -35,17 +38,20 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
     private RecyclerView recyclerDispositivos;
     private DevicesAdapter devicesAdapter;
 
-    private String modo = NORMAL;
+    private int modo = NORMAL;
 
     public DevicesFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Añade los metodos a los botones
+     */
     @Override
     public void onStart() {
         super.onStart();
 
-        initView(context);
+        initView();
 
         menuFloatingButton.setOnClickListener(v -> {
             if(showingMenu){
@@ -83,6 +89,11 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
 
     }
 
+    /**
+     * Se llama al hacer click en uno de los dispositivos, cambia su funcion dependiendo del modo
+     * @param device
+     * @return
+     */
     @Override
     public boolean onItemClicked(Device device) {
         switch (modo){
@@ -120,7 +131,10 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
         return inflater.inflate(R.layout.fragment_devices, container, false);
     }
 
-    private void initView(MainActivity context) {
+    /**
+     * Inicializa los componentes
+     */
+    private void initView() {
         menuFloatingButton = (FloatingActionButton) context.findViewById(R.id.menuFloatingButton);
         editarFloatingButton = (FloatingActionButton) context.findViewById(R.id.editarFloatingButton);
         anyadirFloatingButton = (FloatingActionButton) context.findViewById(R.id.anyadirFloatingButton);

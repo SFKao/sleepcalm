@@ -30,6 +30,9 @@ import omelcam934.sleepcalm.devices.Device;
 import omelcam934.sleepcalm.devices.DevicesRealm;
 import omelcam934.sleepcalm.devices.EndpointDevice;
 
+/**
+ * Fragmento de dialogo para añadir o editar un dispositivo
+ */
 public class DeviceInputFragment extends DialogFragment {
 
     private Device deviceEdit;
@@ -45,14 +48,26 @@ public class DeviceInputFragment extends DialogFragment {
 
     private DeviceDataFragment currentDeviceDataFragment;
 
+    /**
+     * Constructor vacio, si se utiliza este estará en modo añadir
+     */
     public DeviceInputFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Constructor con parametro, si se utiliza este estará en modo editar
+     * @param device
+     */
     public DeviceInputFragment(Device device){
         deviceEdit = device;
     }
 
+    /**
+     * Cuando se cree se añaden los metodos a todos los botones
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView(view);
@@ -121,6 +136,8 @@ public class DeviceInputFragment extends DialogFragment {
             Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show();
             //TODO: Enviar a web con info en backend
         });
+
+        //Dependiendo del modo se colocan los datos del objeto o no
         if(deviceEdit==null) {
             currentDeviceDataFragment = new EndpointDeviceFragment();
             changeFragment((Fragment) currentDeviceDataFragment);
@@ -152,6 +169,11 @@ public class DeviceInputFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Obtiene el dispositivo a partir de los datos
+     * @return
+     * @throws IllegalStateException
+     */
     private Device getDevice() throws IllegalStateException{
         if(deviceNameEdit.getText().toString().equals(""))
             throw new IllegalStateException("Nombre");
@@ -168,11 +190,15 @@ public class DeviceInputFragment extends DialogFragment {
                         data[3]
                         );
             default:
-                Toast.makeText(context, "No hay protocolo seleccionado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.no_hay_protocolo_seleccionado, Toast.LENGTH_SHORT).show();
         }
         throw new IllegalStateException("Protocolo");
     }
 
+    /**
+     * Cambia el fragmento de los campos dependientes del tipo de dispositivo
+     * @param fragment fragmento al que cambiar
+     */
     private void changeFragment(Fragment fragment) {
         this.getChildFragmentManager()
                 .beginTransaction()
@@ -198,6 +224,10 @@ public class DeviceInputFragment extends DialogFragment {
         this.context = (MainActivity) context;
     }
 
+    /**
+     * Inicializa los componentes
+     * @param view
+     */
     private void initView(View view) {
         protocolSpinner = (Spinner) view.findViewById(R.id.protocolSpinner);
         deviceNameEdit = (EditText) view.findViewById(R.id.deviceNameEdit);

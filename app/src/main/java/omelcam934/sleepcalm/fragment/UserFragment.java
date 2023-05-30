@@ -28,12 +28,13 @@ import omelcam934.sleepcalm.endpoint.BackendApiService;
 import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 import omelcam934.sleepcalm.services.LoginService;
 
-
+/**
+ * Fragmento para acceder a datos del usuario, boton de login y logout
+ */
 public class UserFragment extends Fragment {
 
     private MainActivity context;
 
-    private ConstraintLayout linearLayout;
     private TextView avisoIniciarSesion;
     private AppCompatButton editarPerfilButton;
     private AppCompatButton editarRegistroButton;
@@ -57,11 +58,15 @@ public class UserFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_user, container, false);
     }
 
+    /**
+     * Añade los metodos a los botones
+     */
     @Override
     public void onStart() {
         super.onStart();
         initView();
 
+        //Miro que este logueado para mostrar los botones correctos
         if(LoginService.isLoguedIn()){
             avisoIniciarSesion.setVisibility(View.GONE);
             loginButton.setVisibility(View.GONE);
@@ -131,6 +136,9 @@ public class UserFragment extends Fragment {
         this.context = (MainActivity) context;
     }
 
+    /**
+     * Inicializa los componentes
+     */
     private void initView() {
         avisoIniciarSesion = (TextView) context.findViewById(R.id.avisoIniciarSesion);
         editarPerfilButton = (AppCompatButton) context.findViewById(R.id.editarPerfilButton);

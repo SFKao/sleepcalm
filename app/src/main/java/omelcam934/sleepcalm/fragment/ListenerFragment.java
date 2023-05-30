@@ -34,9 +34,7 @@ import omelcam934.sleepcalm.services.SleepService;
 import omelcam934.sleepcalm.services.sleeptrack.LocalSleepTrackRealm;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListenerFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragmento para activar la escucha de sueño del usuario
  */
 public class ListenerFragment extends Fragment {
 
@@ -65,11 +63,6 @@ public class ListenerFragment extends Fragment {
             }
         }
     });
-
-    public static ListenerFragment newInstance(){
-         return new ListenerFragment();
-     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,7 +103,7 @@ public class ListenerFragment extends Fragment {
 
             //Miro los permisos
             if (!checkRecognitionPermission()) {
-                Toast.makeText(context, "No se tienen los permisos para funcionar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int)R.string.no_se_tienen_permisos, Toast.LENGTH_SHORT).show();
                 requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION);
                 return;
             }
@@ -119,11 +112,11 @@ public class ListenerFragment extends Fragment {
             SleepService.getSleepService().changeStatus(!listening);
             this.listening = !listening;
             listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
-            listeningStatusText.setText(this.listening ? "Escuchando..." : "Listo para escuchar.");
+            listeningStatusText.setText(this.listening ? getString(R.string.escuchando) : getString(R.string.listo_para_escuchar));
         });
 
         listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
-        listeningStatusText.setText(this.listening ? "Escuchando..." : "Listo para escuchar.");
+        listeningStatusText.setText(this.listening ? getString(R.string.escuchando) : getString(R.string.listo_para_escuchar));
         devicesText.setText(DevicesRealm.getAllActiveDevices().size() + getResources().getString(R.string.dispositivos_programados_para_su_desactivaci_n));
     }
 

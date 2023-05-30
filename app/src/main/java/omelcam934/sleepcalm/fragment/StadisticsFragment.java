@@ -32,6 +32,9 @@ import omelcam934.sleepcalm.endpoint.dto.WeekDto;
 import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 import omelcam934.sleepcalm.services.LoginService;
 
+/**
+ * Fragmento para mostrar los registros de sueño
+ */
 public class StadisticsFragment extends Fragment {
 
     private MainActivity context;
@@ -52,11 +55,15 @@ public class StadisticsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Añade los metodos a los botones
+     */
     @Override
     public void onStart() {
         super.onStart();
         initView();
 
+        //Miro si el usuario esta logueado
         if(LoginService.isLoguedIn()) {
             try {
                 printWeek(BackendApiService.getCurrentWeek(context), new Date());
@@ -75,12 +82,16 @@ public class StadisticsFragment extends Fragment {
 
             weekButton.setOnClickListener(view -> showDatePickerDialog());
 
-
         }else{
             Toast.makeText(context, (int)R.string.necesitas_iniciar_sesion, Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Coloca los datos de la semana en los componentes
+     * @param week semana
+     * @param searchDate fecha por la que se esta buscando para colocarla en el centro
+     */
     private void printWeek(WeekDto week, Date searchDate){
         weekButton.setText(buttonDateFormat.format(searchDate));
 
@@ -96,13 +107,17 @@ public class StadisticsFragment extends Fragment {
             horasDormidasDia.setText(R.string.interrogation);
             return;
         }
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(searchDate);
         int buttonDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
         DateFormat dateFormat = BackendApiService.dateFormat;
         boolean diaActualCambiado = false;
+
         try {
             for (SleepTrackDto dia : week.getWeekSleepTracks()) {
+
                 calendar.setTime(Objects.requireNonNull(dateFormat.parse(dia.getDia())));
                 int indiceDia = calendar.get(Calendar.DAY_OF_WEEK);
                 String horasYMinutos = calculateTimeBetweenSleepTrack(dia);
@@ -137,10 +152,16 @@ public class StadisticsFragment extends Fragment {
             if(!diaActualCambiado)
                 horasDormidasDia.setText(R.string.interrogation);
         } catch (ParseException e) {
-            Toast.makeText(context, "El formato del dateFormat es invalido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, (int)R.string.dateFormat_invalido, Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Calcula las horas y minutos de sueño en un dia
+     * @param sleepTrackDto dia
+     * @return las horas y minutos en formato HH:MM
+     * @throws ParseException si el dateFormat es invalido
+     */
     private static String calculateTimeBetweenSleepTrack(SleepTrackDto sleepTrackDto) throws ParseException {
         DateFormat dateFormat = BackendApiService.dateFormat;
         Date horaInicio = dateFormat.parse(sleepTrackDto.getHoraDeInicio());
@@ -151,6 +172,9 @@ public class StadisticsFragment extends Fragment {
         return hours+":"+(minutes<10?"0"+minutes:minutes);
     }
 
+    /**
+     * Muestra un dialogo para escoger la fecha de android y lo muestra
+     */
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(context);
         datePickerDialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
@@ -189,7 +213,9 @@ public class StadisticsFragment extends Fragment {
         this.context = (MainActivity) context;
     }
 
-
+    /**
+     * Inicializa los componentes
+     */
     private void initView() {
         horasDormidasDia = context.findViewById(R.id.horasDormidasDia);
         horasLunesText = context.findViewById(R.id.horasLunesText);

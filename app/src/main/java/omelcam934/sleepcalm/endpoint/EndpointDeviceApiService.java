@@ -9,10 +9,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Clase para llamar ejecutar llamadas API a dispositivos. Tambien contiene metodos de prueba
+ */
 public class EndpointDeviceApiService {
 
+    /**
+     * Hace una llamada al endpoint a partir de sus datos
+     * @param baseURL url base (ip + puerto)
+     * @param path endpoint y parametros si hay
+     */
     public static void executeApiCall(String baseURL, String path){
-        System.out.println(baseURL+path);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(baseURL)

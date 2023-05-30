@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.MainActivity;
 
+/**
+ * Fragmento para mostrar la información especifica de un dispositivo de endpoint
+ */
 public class EndpointDeviceFragment extends Fragment implements DeviceDataFragment {
 
     private EditText deviceEndpointIp;
@@ -38,6 +41,13 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Coloca los datos del dispositivo en caso de que se envien
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +65,10 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
         return view;
     }
 
+    /**
+     * Valida y envia los datos al fragmento de DeviceInputFragment
+     * @return array con todos los datos validados
+     */
     @Override
     public String[] getData() {
         if(!Pattern.matches("^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$", deviceEndpointIp.getText().toString()))

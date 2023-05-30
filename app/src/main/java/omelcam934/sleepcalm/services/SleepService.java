@@ -86,7 +86,6 @@ public class SleepService extends BroadcastReceiver {
     @SuppressLint("MissingPermission")
     private void activateListener() {
 
-        Log.d("MIMIR", "activando listener");
         EndpointDeviceApiService.sendTestMessage("activando listener");
 
         sleepReceiverPendingIntent = createSleepReceiverPendingIntent(context);
@@ -114,7 +113,6 @@ public class SleepService extends BroadcastReceiver {
      * Desactiva el servicio de escucha
      */
     private void deactivateListener(){
-        Log.d("MIMIR", "desactivando listener");
         EndpointDeviceApiService.sendTestMessage("desactivando listener");
         Task<Void> task = ActivityRecognition.getClient(context).removeSleepSegmentUpdates(sleepReceiverPendingIntent);
 
@@ -130,6 +128,9 @@ public class SleepService extends BroadcastReceiver {
 
     }
 
+    /**
+     * Envia los datos de sueño al backend
+     */
     private void sendDataToBack(){
         EndpointDeviceApiService.sendTestMessage(LocalSleepTrackRealm.getHoraDeiInicio().toString());
         EndpointDeviceApiService.sendTestMessage(new Date().toString());
@@ -165,7 +166,6 @@ public class SleepService extends BroadcastReceiver {
         }else if(SleepClassifyEvent.hasEvents(intent)){
             //Los eventos de classify contienen la confiazna de que el usuario se haya dormido.
             List<SleepClassifyEvent> events = SleepClassifyEvent.extractEvents(intent);
-            Log.d("MIMIR", "eventos de clasificar "+events);
             EndpointDeviceApiService.sendClassify("eventos de clasificar "+events);
 
             events.forEach(event -> addSleepTrack(event.getConfidence()));

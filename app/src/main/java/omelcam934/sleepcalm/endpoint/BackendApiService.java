@@ -24,14 +24,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Clase para acceder al endpoint del backend
+ */
 public class BackendApiService {
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             //.baseUrl("http://sfkao.bounceme.net:25577/api/")
-            .baseUrl("http://192.168.18.4:8080/api/")
-            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
+            .baseUrl("http://192.168.18.4:8080/api/") //IP Local para poder acceder desde mi hogar ya que mi ISP no permite conexiones boomerang
+            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())) //Activamo setLenient para que permita obtener el token si tiene un enter en este
             .build();
 
+    //Formato con el que el backend se comunica con fechas
     public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.forLanguageTag("es-ES"));
 
     /**
@@ -87,6 +91,11 @@ public class BackendApiService {
         }
     }
 
+    /**
+     * Mira si un token es valido, para pruebas
+     * @return true si es valido
+     * @throws IOException Si no se ha podido conectar
+     */
     public static boolean checkToken() throws IOException {
         BackendApiServiceInterface backendApiServiceInterface = retrofit.create(BackendApiServiceInterface.class);
         Call<Boolean> call = backendApiServiceInterface.checkToken("Bearer "+LoginService.getToken());
@@ -94,16 +103,31 @@ public class BackendApiService {
         return response.isSuccessful();
     }
 
+    /**
+     * Obtiene la semana actual con las fechas de inicio y fin de sueño
+     * @param context contexto desde donde se llama
+     * @return la semana
+     * @throws InvalidLoginException si no se ha podido hacer login en caso de que el token este fallido
+     * @throws IOException si no se ha podido conectar al backend
+     */
     public static WeekDto getCurrentWeek(Context context) throws InvalidLoginException, IOException {
         return getCurrentWeek(context, false);
     }
 
+    /**
+     * Obtiene la semana actual con las fechas de inicio y fin de sueño. Recursiva
+     * @param context contexto desde donde se llama
+     * @param triedLogin si se ha intentado hacer login en caso de que sea desautorizado
+     * @return la semana
+     * @throws InvalidLoginException si no se ha podido hacer login en caso de que el token este fallido
+     * @throws IOException si no se ha podido conectar al backend
+     */
     private static WeekDto getCurrentWeek(Context context, boolean triedLogin) throws InvalidLoginException, IOException {
         if(!LoginService.isLoguedIn()){
             LoginService.autoLogin(context);
             triedLogin = true;
         }
-        Log.d("MIMIR", "Iniciando busqueda de la semana");
+
         BackendApiServiceInterface backendApiServiceInterface = retrofit.create(BackendApiServiceInterface.class);
         Call<WeekDto> call = backendApiServiceInterface.getCurrentWeek("Bearer "+LoginService.getToken());
         Response<WeekDto> response = call.execute();
@@ -115,7 +139,6 @@ public class BackendApiService {
                 if(triedLogin){
                     throw new InvalidLoginException();
                 }else{
-                    Log.d("MIMIR", "Logueandose y intentando busqueda de la semana");
                     LoginService.newToken(context);
                     getCurrentWeek(context,true);
                 }
@@ -124,10 +147,25 @@ public class BackendApiService {
         }
     }
 
+    /**
+     * Obtiene la semana de la fecha elegida con las fechas de inicio y fin de sueño
+     * @param context contexto desde donde se llama
+     * @return la semana
+     * @throws InvalidLoginException si no se ha podido hacer login en caso de que el token este fallido
+     * @throws IOException si no se ha podido conectar al backend
+     */
     public static WeekDto getWeek(Context context, Date date) throws InvalidLoginException, IOException {
         return getWeek(context, date, false);
     }
 
+    /**
+     * Obtiene la semana de la fecha elegida con las fechas de inicio y fin de sueño. Recursiva
+     * @param context contexto desde donde se llama
+     * @param triedLogin si se ha intentado hacer login en caso de que sea desautorizado
+     * @return la semana
+     * @throws InvalidLoginException si no se ha podido hacer login en caso de que el token este fallido
+     * @throws IOException si no se ha podido conectar al backend
+     */
     private static WeekDto getWeek(Context context, Date date, boolean triedLogin) throws InvalidLoginException, IOException {
         if(!LoginService.isLoguedIn()){
             LoginService.autoLogin(context);
@@ -151,6 +189,15 @@ public class BackendApiService {
         }
     }
 
+    /**
+     * Envia al backend el inicio y final de sueño del usuario para mantener las estadisticas. Hace login antes ya que se llamara por la noche y el token habra expirado
+     * @param context contexto desde donde se llama
+     * @param horaDeInicio hora cuando se durmio el usuario
+     * @param horaDeFin hora cuando se desperto
+     * @return el dato con el campo de dia rellenado
+     * @throws InvalidLoginException si no se ha podido hacer login en el servidor
+     * @throws IOException si no se ha podido conectar con el servidor
+     */
     public static SleepTrackDto postSleepTrack(Context context, Date horaDeInicio, Date horaDeFin) throws InvalidLoginException, IOException {
 
         LoginService.autoLogin(context);

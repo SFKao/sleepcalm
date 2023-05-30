@@ -8,8 +8,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.realm.Realm;
 
+/**
+ * Permite acceder y modificar a distinta información del LocalSleepTrack para modificarlos. El modo escucha no puede almacenar datos en el y por ello hace falta esto.
+ */
 public class LocalSleepTrackRealm {
 
+    /**
+     * Borra y crea un nuevo sleep track para vaciarlo
+     * @return
+     */
     public static LocalSleepTrack recreateLocalSleepTrack(){
         Realm realm = Realm.getDefaultInstance();
         AtomicReference<LocalSleepTrack> localSleepTrack = new AtomicReference<>();
@@ -20,6 +27,10 @@ public class LocalSleepTrackRealm {
         return localSleepTrack.get();
     }
 
+    /**
+     * Obtiene la suma de confianza
+     * @return suma de las confianzas
+     */
     public static int getSumOfConfidences(){
         Realm realm = Realm.getDefaultInstance();
         AtomicInteger sum = new AtomicInteger();
@@ -29,6 +40,11 @@ public class LocalSleepTrackRealm {
         return sum.get();
     }
 
+    /**
+     * Añade un nuevo valor de confianza de que el usuario esta dormido y devuelve su suma
+     * @param newConfidence nueva confianza
+     * @return suma de las cofianzas
+     */
     public static int addConfidence(int newConfidence){
         Realm realm = Realm.getDefaultInstance();
         AtomicInteger sum = new AtomicInteger();
@@ -43,6 +59,10 @@ public class LocalSleepTrackRealm {
         return sum.get();
     }
 
+    /**
+     * Devuelve si el usuario esta dormido
+     * @return si el usuario esta dormido
+     */
     public static boolean isUserAsleep(){
         Realm realm = Realm.getDefaultInstance();
         AtomicBoolean ret = new AtomicBoolean(false);
@@ -54,6 +74,10 @@ public class LocalSleepTrackRealm {
         return ret.get();
     }
 
+    /**
+     * Almacena si el usuario esta dormido
+     * @param newAsleep nuevo estado de dormido
+     */
     public static void setUserAsleep(boolean newAsleep){
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
@@ -63,6 +87,10 @@ public class LocalSleepTrackRealm {
         });
     }
 
+    /**
+     * Obtiene la hora de inicio de sueño del usuario
+     * @return hora a la que se durmio si tiene
+     */
     public static Date getHoraDeiInicio(){
         Realm realm = Realm.getDefaultInstance();
         AtomicReference<Date> ret = new AtomicReference<>();
@@ -72,6 +100,10 @@ public class LocalSleepTrackRealm {
         return ret.get();
     }
 
+    /**
+     * Almacena la hora a la que se durmio el usuario
+     * @param newHoraDeInicio hora a la que se durmio
+     */
     public static void setHoraDeInicio(Date newHoraDeInicio){
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {

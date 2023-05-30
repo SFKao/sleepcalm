@@ -14,6 +14,9 @@ import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 import omelcam934.sleepcalm.services.LoginService;
 
+/**
+ * Activity para hacer login.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameOrEmailEdit;
@@ -21,6 +24,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button registerButton;
 
+    /**
+     * Inicializa los componentes
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         initView();
     }
 
+    /**
+     * Se llama al iniciarse, prepara los botones con sus metodos
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
+        //Intento loguearme y si lo consigo voy a la activity
         loginButton.setOnClickListener(view -> {
             if(!validate())
                 return;
@@ -50,13 +61,18 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
+        //Voy a la pantalla de registro
         registerButton.setOnClickListener(view -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
 
     }
-    
+
+    /**
+     * Valida los campos
+     * @return si son validos
+     */
     private boolean validate(){
         if(usernameOrEmailEdit.getText().toString().equals("")){
             Toast.makeText(this, (int)R.string.se_requiere_usuario_o_email, Toast.LENGTH_SHORT).show();
@@ -69,6 +85,9 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Inicializa los componentes
+     */
     private void initView() {
         usernameOrEmailEdit = (EditText) findViewById(R.id.usernameOrEmailEdit);
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
