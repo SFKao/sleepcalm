@@ -17,7 +17,6 @@ import omelcam934.sleepcalm.activity.MainActivity;
 
 public class EndpointDeviceFragment extends Fragment implements DeviceDataFragment {
 
-    private MainActivity context;
     private EditText deviceEndpointIp;
     private EditText deviceEndpointPuerto;
     private EditText deviceEndpointEndpoint;
@@ -32,12 +31,6 @@ public class EndpointDeviceFragment extends Fragment implements DeviceDataFragme
     @Override
     public void onStart() {
         super.onStart();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = (MainActivity) context;
     }
 
     @Override

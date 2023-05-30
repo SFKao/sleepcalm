@@ -69,12 +69,12 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
         });
 
         editarFloatingButton.setOnClickListener(v -> {
-            Toast.makeText(context, "Pulsa sobre la que deseas editar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, (int)R.string.cual_deseas_editar, Toast.LENGTH_SHORT).show();
             modo = EDITAR;
         });
 
         borrarFloatingButton.setOnClickListener(v -> {
-            Toast.makeText(context, "Pulsa sobre el que desees borrar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, (int)R.string.cual_deseas_borrar, Toast.LENGTH_SHORT).show();
             modo = BORRAR;
         });
 

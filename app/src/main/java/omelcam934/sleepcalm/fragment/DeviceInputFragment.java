@@ -81,7 +81,7 @@ public class DeviceInputFragment extends DialogFragment {
                         changeFragment((Fragment) currentDeviceDataFragment);
                         break;
                     default:
-                        Toast.makeText(context, "Eso no es una opcion correcta", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, (int)R.string.opcion_incorrecta, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -147,7 +147,7 @@ public class DeviceInputFragment extends DialogFragment {
                     );
                     break;
                 default:
-                    Toast.makeText(context, "Eso no es una opcion correcta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, (int) R.string.opcion_incorrecta, Toast.LENGTH_SHORT).show();
             }
         }
     }

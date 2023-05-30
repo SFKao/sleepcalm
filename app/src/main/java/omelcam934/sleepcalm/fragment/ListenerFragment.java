@@ -124,7 +124,7 @@ public class ListenerFragment extends Fragment {
 
         listenButton.setImageDrawable(AppCompatResources.getDrawable(context,this.listening ? R.drawable.visibility_fill0_wght400_grad0_opsz48 : R.drawable.visibility_off_fill0_wght400_grad0_opsz48));
         listeningStatusText.setText(this.listening ? "Escuchando..." : "Listo para escuchar.");
-        devicesText.setText(DevicesRealm.getAllActiveDevices().size() + " dispositivos programados para su desactivación.");
+        devicesText.setText(DevicesRealm.getAllActiveDevices().size() + getResources().getString(R.string.dispositivos_programados_para_su_desactivaci_n));
     }
 
     /**

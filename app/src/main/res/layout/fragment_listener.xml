@@ -32,7 +32,7 @@
         android:src="@drawable/visibility_fill0_wght400_grad0_opsz48"
         android:scaleType="fitXY"
         android:padding="50dp"
-        android:contentDescription="Boton para iniciar o desactivar la escucha"
+        android:contentDescription="@string/boton_para_iniciar_o_desactivar_la_escucha"
         />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:gravity="center"
-        android:text="X dispositivos programados para su desactivación"
+        android:text="@string/dispositivos_programados_para_su_desactivaci_n"
         android:textColor="@color/contrasteDetalle"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="172dp"

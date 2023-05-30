@@ -61,15 +61,15 @@ public class StadisticsFragment extends Fragment {
             try {
                 printWeek(BackendApiService.getCurrentWeek(context), new Date());
             } catch (InvalidLoginException e) {
-                Toast.makeText(context, "Se ha cerrado sesion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int)R.string.se_ha_cerrado_sesion, Toast.LENGTH_SHORT).show();
                 try {
                     LoginService.logout(context);
                 } catch (IOException ex) {
-                    Toast.makeText(context, "No se ha podido hacer logout", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, (int) R.string.no_se_ha_podido_hacer_logout, Toast.LENGTH_SHORT).show();
                     ex.printStackTrace();
                 }
             } catch (IOException e) {
-                Toast.makeText(context, "No se ha podido realizar la conexion con el back", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int)R.string.no_conexion_back, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
@@ -77,7 +77,7 @@ public class StadisticsFragment extends Fragment {
 
 
         }else{
-            Toast.makeText(context, "Necesitas iniciar sesión para ello", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, (int)R.string.necesitas_iniciar_sesion, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -86,14 +86,14 @@ public class StadisticsFragment extends Fragment {
 
         //Si no hay dias esa semana
         if(week.getWeekSleepTracks().size()==0){
-            horasLunesText.setText("?");
-            horasMartesText.setText("?");
-            horasMiercolesText.setText("?");
-            horasJuevesText.setText("?");
-            horasViernesText.setText("?");
-            horasSabadoText.setText("?");
-            horasDomingoText.setText("?");
-            horasDormidasDia.setText("?");
+            horasLunesText.setText(R.string.interrogation);
+            horasMartesText.setText(R.string.interrogation);
+            horasMiercolesText.setText(R.string.interrogation);
+            horasJuevesText.setText(R.string.interrogation);
+            horasViernesText.setText(R.string.interrogation);
+            horasSabadoText.setText(R.string.interrogation);
+            horasDomingoText.setText(R.string.interrogation);
+            horasDormidasDia.setText(R.string.interrogation);
             return;
         }
         Calendar calendar = Calendar.getInstance();
@@ -135,7 +135,7 @@ public class StadisticsFragment extends Fragment {
                 }
             }
             if(!diaActualCambiado)
-                horasDormidasDia.setText("?");
+                horasDormidasDia.setText(R.string.interrogation);
         } catch (ParseException e) {
             Toast.makeText(context, "El formato del dateFormat es invalido", Toast.LENGTH_SHORT).show();
         }

@@ -15,7 +15,7 @@
         android:layout_height="65dp"
         android:id="@+id/icon_device"
         app:tint="@color/detalle"
-        android:contentDescription="Icono del dispositivo" />
+        android:contentDescription="@string/icono_del_dispositivo" />
 
     <TextView
         android:layout_weight="1"

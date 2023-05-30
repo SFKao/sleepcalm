@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Protocolo"
+                android:text="@string/protocolo"
                 android:textColor="@color/detalle"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="96dp"
                 android:layout_marginEnd="96dp"
                 android:backgroundTint="@color/detalle"
-                android:contentDescription="Protocolo"
+                android:contentDescription="@string/protocolo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
                     android:background="@drawable/rounder_corners"
                     android:ems="10"
                     android:foregroundTint="@color/detalle"
-                    android:hint="Nombre"
+                    android:hint="@string/nombre"
                     android:inputType="textPersonName"
                     android:textColor="@color/detalle"
                     android:textStyle="bold" />
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/detalle"
-                    android:contentDescription="Device icon" />
+                    android:contentDescription="@string/device_icon" />
             </LinearLayout>
 
         </LinearLayout>
@@ -119,7 +119,7 @@
             android:layout_marginEnd="28dp"
             android:backgroundTint="@color/detalle"
             android:clickable="true"
-            android:contentDescription="Volver"
+            android:contentDescription="@string/volver"
             android:src="@drawable/arrow_back_fill0_wght400_grad0_opsz48"
             app:layout_constraintBottom_toBottomOf="@+id/helpFloatingButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +134,7 @@
             android:layout_marginEnd="20dp"
             android:backgroundTint="@color/detalle"
             android:clickable="true"
-            android:contentDescription="Ayuda"
+            android:contentDescription="@string/ayuda"
             android:src="@drawable/help_center_fill0_wght400_grad0_opsz48"
             app:layout_constraintEnd_toStartOf="@+id/backDeviceButton"
             app:layout_constraintTop_toBottomOf="@+id/fragmentHolderDeviceData" />
@@ -146,8 +146,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/detalle"
-            android:contentDescription="Probar"
-            android:text="Probar"
+            android:contentDescription="@string/probar"
+            android:text="@string/probar"
             app:layout_constraintBottom_toBottomOf="@+id/helpFloatingButton"
             app:layout_constraintEnd_toStartOf="@+id/helpFloatingButton"
             app:layout_constraintHorizontal_bias="0.0"
@@ -163,8 +163,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/detalle"
-            android:contentDescription="Añadir"
-            android:text="Añadir dispositivo"
+            android:contentDescription="@string/a_adir"
+            android:text="@string/a_adir_dispositivo"
             app:layout_constraintEnd_toEndOf="@+id/backDeviceButton"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/testDeviceButton"

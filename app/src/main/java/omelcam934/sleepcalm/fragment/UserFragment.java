@@ -83,7 +83,7 @@ public class UserFragment extends Fragment {
         logoutButton.setOnClickListener(view -> {
             try {
                 LoginService.logout(context);
-                Toast.makeText(context, "Cerrada sesion correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int)R.string.cerradaSesion, Toast.LENGTH_SHORT).show();
 
                 editarRegistroButton.setVisibility(View.GONE);
                 borrarRegistrosButton.setVisibility(View.GONE);
@@ -94,7 +94,7 @@ public class UserFragment extends Fragment {
                 loginButton.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context, "No se ha podido hacer logout", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int)R.string.no_se_ha_podido_hacer_logout, Toast.LENGTH_SHORT).show();
             }
         });
 

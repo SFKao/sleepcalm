@@ -43,23 +43,23 @@ public class RegisterActivity extends AppCompatActivity {
 
         registrarseButton.setOnClickListener(view -> {
             if(usernameEdit.getText().toString().equals("")) {
-                Toast.makeText(this, "Se requiere nombre de usuario", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.se_require_username, Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!emailEdit.getText().toString().matches(EMAILPATTERN)){
-                Toast.makeText(this, "Se requiere un email valido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.se_requiere_email, Toast.LENGTH_SHORT).show();
                 return;
             }
             if(passwordEdit.getText().toString().equals("")) {
-                Toast.makeText(this, "Se requiere contraseña", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.se_requiere_contrase_a, Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!repeatPasswordEdit.getText().toString().equals(passwordEdit.getText().toString())) {
-                Toast.makeText(this, "Las contraseñas han de coincidir", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.las_contrase_as_han_de_coincidir, Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!terminosSwitch.isChecked()){
-                Toast.makeText(this, "Se tienen que aceptar los terminos y condiciones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.terminos_y_condiciones, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -68,16 +68,16 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             } catch (IOException e) {
-                Toast.makeText(this, "No se ha podido conectar con el servidor", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.no_conexion_back, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (EmailOrUsernameInUseException e) {
-                Toast.makeText(this, "El nombre de usuario o email ya estan en uso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.username_o_email_en_uso, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (InvalidEmailException e) {
-                Toast.makeText(this, "El email no es valido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.email_invalido, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (InvalidLoginException e) {
-                Toast.makeText(this, "No se ha podido auto iniciar sesion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.no_se_ha_podido_iniciar_sesion, Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 

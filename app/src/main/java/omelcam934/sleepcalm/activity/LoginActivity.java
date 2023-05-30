@@ -42,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             } catch (InvalidLoginException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Los datos no son validos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.datos_invalidos, Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Hubo un error en la solicitud", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int)R.string.no_conexion_back, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -55,18 +55,15 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        usernameOrEmailEdit.setText("omelcam934");
-        passwordEdit.setText("stallman");
-
     }
     
     private boolean validate(){
         if(usernameOrEmailEdit.getText().toString().equals("")){
-            Toast.makeText(this, "Se requiere nombre de usuario o email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, (int)R.string.se_requiere_usuario_o_email, Toast.LENGTH_SHORT).show();
             return false;
         }
         if(passwordEdit.getText().toString().equals("")){
-            Toast.makeText(this, "Se requiere contraseña", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, (int)R.string.se_requiere_contrase_a, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

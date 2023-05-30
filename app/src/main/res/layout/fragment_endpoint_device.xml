@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.EndpointDeviceFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+    tools:context=".fragment.EndpointDeviceFragment"
+    android:orientation="vertical"
+    >
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -26,7 +22,7 @@
                 android:background="@drawable/rounder_corners"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="IP"
+                android:hint="@string/ip"
                 android:textColor="@color/detalle"
                 android:textStyle="bold" />
 
@@ -47,7 +43,7 @@
                 android:background="@drawable/rounder_corners"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Puerto"
+                android:hint="@string/puerto"
                 android:textColor="@color/detalle"
                 android:textStyle="bold" />
 
@@ -68,7 +64,7 @@
                 android:background="@drawable/rounder_corners"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Endpoint"
+                android:hint="@string/endpoint"
                 android:textColor="@color/detalle"
                 android:textStyle="bold" />
 
@@ -88,12 +84,11 @@
                 android:background="@drawable/rounder_corners"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Parametro"
+                android:hint="@string/parametro"
                 android:textColor="@color/detalle"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>
