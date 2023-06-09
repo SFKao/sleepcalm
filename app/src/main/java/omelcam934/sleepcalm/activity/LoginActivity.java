@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
+import omelcam934.sleepcalm.fragment.ContrasenyaOlvidadaFragment;
 import omelcam934.sleepcalm.services.LoginService;
 
 /**
@@ -23,9 +24,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEdit;
     private Button loginButton;
     private Button registerButton;
+    private Button contrasenyaOlvidadaButton;
 
     /**
      * Inicializa los componentes
+     *
      * @param savedInstanceState
      */
     @Override
@@ -44,19 +47,19 @@ public class LoginActivity extends AppCompatActivity {
 
         //Intento loguearme y si lo consigo voy a la activity
         loginButton.setOnClickListener(view -> {
-            if(!validate())
+            if (!validate())
                 return;
 
             try {
-                LoginService.login(usernameOrEmailEdit.getText().toString(), passwordEdit.getText().toString(),this, true);
-                Intent intent = new Intent(this,MainActivity.class);
+                LoginService.login(usernameOrEmailEdit.getText().toString(), passwordEdit.getText().toString(), this, true);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             } catch (InvalidLoginException e) {
                 e.printStackTrace();
-                Toast.makeText(this, (int)R.string.datos_invalidos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int) R.string.datos_invalidos, Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, (int)R.string.no_conexion_back, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, (int) R.string.no_conexion_back, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -67,19 +70,24 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        contrasenyaOlvidadaButton.setOnClickListener(view -> {
+            new ContrasenyaOlvidadaFragment().show(getSupportFragmentManager(), "Olvidada");
+        });
+
     }
 
     /**
      * Valida los campos
+     *
      * @return si son validos
      */
-    private boolean validate(){
-        if(usernameOrEmailEdit.getText().toString().equals("")){
-            Toast.makeText(this, (int)R.string.se_requiere_usuario_o_email, Toast.LENGTH_SHORT).show();
+    private boolean validate() {
+        if (usernameOrEmailEdit.getText().toString().equals("")) {
+            Toast.makeText(this, (int) R.string.se_requiere_usuario_o_email, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(passwordEdit.getText().toString().equals("")){
-            Toast.makeText(this, (int)R.string.se_requiere_contrase_a, Toast.LENGTH_SHORT).show();
+        if (passwordEdit.getText().toString().equals("")) {
+            Toast.makeText(this, (int) R.string.se_requiere_contrase_a, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -93,5 +101,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordEdit = (EditText) findViewById(R.id.passwordEdit);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
+        contrasenyaOlvidadaButton = (Button) findViewById(R.id.contrasenaOlvidadaButton);
     }
 }

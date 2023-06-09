@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/editarRegistroButton"
+            android:id="@+id/cambiarContraButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -60,27 +60,12 @@
             android:drawableStart="@drawable/edit_fill0_wght400_grad0_opsz48"
             android:drawableTint="@color/detalle"
             android:padding="10dp"
-            android:text="@string/editar_registros"
+            android:text="@string/cambiar_contrasenya"
             android:textColor="@color/detalle"
             app:layout_constraintEnd_toEndOf="@+id/editarPerfilButton"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/editarPerfilButton"
             app:layout_constraintTop_toBottomOf="@+id/editarPerfilButton" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/borrarRegistrosButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/rounder_corners"
-            android:drawableStart="@drawable/calendar_month_fill0_wght400_grad0_opsz48"
-            android:drawableTint="@color/detalle"
-            android:padding="10dp"
-            android:text="@string/borrar_registro"
-            android:textColor="@color/detalle"
-            app:layout_constraintEnd_toEndOf="@+id/editarRegistroButton"
-            app:layout_constraintStart_toStartOf="@+id/editarRegistroButton"
-            app:layout_constraintTop_toBottomOf="@+id/editarRegistroButton" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"

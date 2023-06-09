@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import omelcam934.sleepcalm.endpoint.dto.LoginDto;
+import omelcam934.sleepcalm.endpoint.dto.NewPasswordDTO;
 import omelcam934.sleepcalm.endpoint.dto.RegistroDto;
 import omelcam934.sleepcalm.endpoint.dto.SleepTrackDto;
 import omelcam934.sleepcalm.endpoint.dto.WeekDto;
@@ -217,7 +218,33 @@ public class BackendApiService {
         }
     }
 
+    /**
+     * Notifica al backend que el email seleccionado requiere una nueva contraseña
+     * @param email email de la cuenta que requiere un nuevo mail
+     * @return si ha funcionado
+     * @throws IOException si no se ha podido realizar la conexion
+     */
+    public static boolean forgotPassword(String email) throws IOException {
+        BackendApiServiceInterface backendApiServiceInterface = retrofit.create(BackendApiServiceInterface.class);
+        Call<Void> call = backendApiServiceInterface.forgotPassword(email);
+        Response<Void> response = call.execute();
+        return response.isSuccessful();
+    }
 
+    /**
+     * Envia la nueva contraseña al backend
+     * @param email email del usuario que quiere cambiar la contraseña
+     * @param lastPassword contraseña actual
+     * @param newPassword nueva contraseña
+     * @return si ha funcionado
+     * @throws IOException si no se ha podido realizar la conexion
+     */
+    public static boolean changePassword(String email, String lastPassword, String newPassword) throws IOException {
+        BackendApiServiceInterface backendApiServiceInterface = retrofit.create(BackendApiServiceInterface.class);
+        Call<Void> call = backendApiServiceInterface.updatePassword(new NewPasswordDTO(email, lastPassword, newPassword));
+        Response<Void> response = call.execute();
+        return response.isSuccessful();
+    }
 
 
 

@@ -18,14 +18,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.LoginActivity;
 import omelcam934.sleepcalm.activity.MainActivity;
-import omelcam934.sleepcalm.endpoint.BackendApiService;
-import omelcam934.sleepcalm.endpoint.exceptions.InvalidLoginException;
 import omelcam934.sleepcalm.services.LoginService;
 
 /**
@@ -37,10 +33,9 @@ public class UserFragment extends Fragment {
 
     private TextView avisoIniciarSesion;
     private AppCompatButton editarPerfilButton;
-    private AppCompatButton editarRegistroButton;
-    private AppCompatButton borrarRegistrosButton;
     private AppCompatButton loginButton;
     private ImageButton logoutButton;
+    private AppCompatButton cambiarContraButton;
 
     public UserFragment() {
         // Required empty public constructor
@@ -67,15 +62,13 @@ public class UserFragment extends Fragment {
         initView();
 
         //Miro que este logueado para mostrar los botones correctos
-        if(LoginService.isLoguedIn()){
+        if (LoginService.isLoguedIn()) {
             avisoIniciarSesion.setVisibility(View.GONE);
             loginButton.setVisibility(View.GONE);
-        }else{
-            editarRegistroButton.setVisibility(View.GONE);
-            borrarRegistrosButton.setVisibility(View.GONE);
+        } else {
             editarPerfilButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.GONE);
-
+            cambiarContraButton.setVisibility(View.GONE);
             avisoIniciarSesion.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.VISIBLE);
         }
@@ -88,32 +81,25 @@ public class UserFragment extends Fragment {
         logoutButton.setOnClickListener(view -> {
             try {
                 LoginService.logout(context);
-                Toast.makeText(context, (int)R.string.cerradaSesion, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int) R.string.cerradaSesion, Toast.LENGTH_SHORT).show();
 
-                editarRegistroButton.setVisibility(View.GONE);
-                borrarRegistrosButton.setVisibility(View.GONE);
                 editarPerfilButton.setVisibility(View.GONE);
                 logoutButton.setVisibility(View.GONE);
-
+                cambiarContraButton.setVisibility(View.GONE);
                 avisoIniciarSesion.setVisibility(View.VISIBLE);
                 loginButton.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context, (int)R.string.no_se_ha_podido_hacer_logout, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, (int) R.string.no_se_ha_podido_hacer_logout, Toast.LENGTH_SHORT).show();
             }
-        });
-
-        editarRegistroButton.setOnClickListener(view -> {
-            Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show();
-        });
-
-        borrarRegistrosButton.setOnClickListener(view -> {
-            Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show();
-
         });
 
         editarPerfilButton.setOnClickListener(view -> {
             Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show();
+        });
+
+        cambiarContraButton.setOnClickListener(view -> {
+            new CambiarContrasenyaFragment().show(getParentFragmentManager(),"Cambiar pass");
         });
 
 
@@ -125,8 +111,8 @@ public class UserFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void showTimePickerDialog(TimePickerDialog.OnTimeSetListener onTimeSetListener){
-        TimePickerDialog timePickerDialog = new TimePickerDialog(context, onTimeSetListener,0,0,true);
+    private void showTimePickerDialog(TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, onTimeSetListener, 0, 0, true);
         timePickerDialog.show();
     }
 
@@ -142,9 +128,10 @@ public class UserFragment extends Fragment {
     private void initView() {
         avisoIniciarSesion = (TextView) context.findViewById(R.id.avisoIniciarSesion);
         editarPerfilButton = (AppCompatButton) context.findViewById(R.id.editarPerfilButton);
-        editarRegistroButton = (AppCompatButton) context.findViewById(R.id.editarRegistroButton);
-        borrarRegistrosButton = (AppCompatButton) context.findViewById(R.id.borrarRegistrosButton);
+
         loginButton = (AppCompatButton) context.findViewById(R.id.loginButton);
         logoutButton = (ImageButton) context.findViewById(R.id.logoutButton);
+
+        cambiarContraButton = (AppCompatButton) context.findViewById(R.id.cambiarContraButton);
     }
 }

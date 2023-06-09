@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registrarseButton;
     private Button volverButton;
 
-    private static final String EMAILPATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    public static final String EMAILPATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     /**
      * Se llama al iniciar la activity, añado los metodos a lso botones

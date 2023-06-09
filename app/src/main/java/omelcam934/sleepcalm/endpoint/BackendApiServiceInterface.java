@@ -1,6 +1,7 @@
 package omelcam934.sleepcalm.endpoint;
 
 import omelcam934.sleepcalm.endpoint.dto.LoginDto;
+import omelcam934.sleepcalm.endpoint.dto.NewPasswordDTO;
 import omelcam934.sleepcalm.endpoint.dto.RegistroDto;
 import omelcam934.sleepcalm.endpoint.dto.SleepTrackDto;
 import omelcam934.sleepcalm.endpoint.dto.UserDto;
@@ -42,5 +43,11 @@ public interface BackendApiServiceInterface {
 
     @GET("user/checktoken")
     Call<Boolean> checkToken(@Header("Authorization")String authHeader);
+
+    @POST("auth/forgotPassword")
+    Call<Void> forgotPassword(@Body String email);
+
+    @PUT("auth/updatePassword")
+    Call<Void> updatePassword(@Body NewPasswordDTO newPasswordDTO);
 
 }

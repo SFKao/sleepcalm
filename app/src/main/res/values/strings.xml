@@ -89,4 +89,10 @@
     <string name="escuchando">Escuchando...</string>
     <string name="listo_para_escuchar">Listo para escuchar.</string>
     <string name="dateFormat_invalido">El formato del dateFormat es invalido</string>
+    <string name="cambiar_contrasenya">Cambiar contraseña</string>
+    <string name="contrase_a_olvidada">Contraseña olvidada</string>
+    <string name="enviar_correo_con_nueva_contrasenya">Enviar correo de recuperación</string>
+    <string name="enviada_contra_temporal">Se envió un email con una contraseña temporal.</string>
+    <string name="nueva_contrasenya">Nueva contraseña</string>
+    <string name="contra_cambiada">Contraseña cambiada correctamente</string>
 </resources>

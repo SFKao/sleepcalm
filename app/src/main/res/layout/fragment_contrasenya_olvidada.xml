@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.ContrasenyaOlvidadaFragment"
+    android:orientation="vertical"
+    android:background="@drawable/rounder_corners"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    >
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/detalle"
+        android:foregroundTint="@color/detalle"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        >
+
+        <EditText
+            android:id="@+id/usernameOrEmailEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:foregroundTint="@color/detalle"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/detalle"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:autofillHints="emailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/enviarCorreoConContrasenyaButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/rounder_corners"
+        android:text="@string/enviar_correo_con_nueva_contrasenya" />
+
+
+</LinearLayout>
