@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import omelcam934.sleepcalm.R;
 import omelcam934.sleepcalm.activity.MainActivity;
+import omelcam934.sleepcalm.adapter.DevicesAdapter;
 import omelcam934.sleepcalm.adapter.IconDeviceSpinnerAdapter;
 import omelcam934.sleepcalm.devices.Device;
 import omelcam934.sleepcalm.devices.DevicesRealm;
@@ -48,6 +49,8 @@ public class DeviceInputFragment extends DialogFragment {
 
     private DeviceDataFragment currentDeviceDataFragment;
 
+    private DevicesAdapter devicesAdapter;
+
     /**
      * Constructor vacio, si se utiliza este estará en modo añadir
      */
@@ -55,11 +58,16 @@ public class DeviceInputFragment extends DialogFragment {
         // Required empty public constructor
     }
 
+    public DeviceInputFragment(DevicesAdapter devicesAdapter) {
+        this.devicesAdapter = devicesAdapter;
+    }
+
     /**
      * Constructor con parametro, si se utiliza este estará en modo editar
      * @param device
      */
-    public DeviceInputFragment(Device device){
+    public DeviceInputFragment(DevicesAdapter devicesAdapter, Device device){
+        this.devicesAdapter = devicesAdapter;
         deviceEdit = device;
     }
 
@@ -121,6 +129,7 @@ public class DeviceInputFragment extends DialogFragment {
                     dev.setId(deviceEdit.getId());
                 }
                 DevicesRealm.addDevice(dev);
+                devicesAdapter.update();
                 dismiss();
             } catch (IllegalStateException e) {
                 Toast.makeText(context, "Hay un error en " + e.getMessage(), Toast.LENGTH_SHORT).show();

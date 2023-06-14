@@ -1,5 +1,6 @@
 package omelcam934.sleepcalm.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import omelcam934.sleepcalm.devices.EndpointDeviceRealm;
  */
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesViewHolder> {
 
-    private List<Device> devices;
+    private final List<Device> devices;
     private OnItemClickListener onItemClickListener;
 
     /**
@@ -115,8 +116,10 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
      * Actualiza los elementos del adapter
      */
     public void update(){
-        devices = DevicesRealm.getAllDevices();
+        devices.clear();
+        devices.addAll(DevicesRealm.getAllDevices());
         notifyDataSetChanged();
+        Log.d("MIMIR", "update: "+devices.toString());
     }
 
     /**

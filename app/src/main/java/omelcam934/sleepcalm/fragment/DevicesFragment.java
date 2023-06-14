@@ -69,9 +69,7 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
         });
 
         anyadirFloatingButton.setOnClickListener(v -> {
-            new DeviceInputFragment().show(context.getSupportFragmentManager(), "Añadir dispositivo");
-            devicesAdapter = new DevicesAdapter(this);
-            recyclerDispositivos.setAdapter(devicesAdapter);
+            new DeviceInputFragment(devicesAdapter).show(context.getSupportFragmentManager(), "Añadir dispositivo");
         });
 
         editarFloatingButton.setOnClickListener(v -> {
@@ -98,16 +96,13 @@ public class DevicesFragment extends Fragment implements DevicesAdapter.OnItemCl
     public boolean onItemClicked(Device device) {
         switch (modo){
             case EDITAR:
-                new DeviceInputFragment(device).show(context.getSupportFragmentManager(), "Editar dispositivo");
-                devicesAdapter = new DevicesAdapter(this);
-                recyclerDispositivos.setAdapter(devicesAdapter);
+                new DeviceInputFragment(devicesAdapter, device).show(context.getSupportFragmentManager(), "Editar dispositivo");
                 modo = NORMAL;
                 return true;
             case BORRAR:
                 DevicesRealm.borrarDevice(device);
-                devicesAdapter = new DevicesAdapter(this);
-                recyclerDispositivos.setAdapter(devicesAdapter);
                 modo = NORMAL;
+                devicesAdapter.update();
                 return true;
         }
         return false;
